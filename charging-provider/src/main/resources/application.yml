@@ -1,0 +1,70 @@
+spring:
+  application:
+    name: charging-provicer
+  datasource:
+    druid:
+      url: jdbc:mysql://192.168.38.128:3306/charging?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: 123456
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      test-on-borrow: true
+      driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8501
+
+# MyBatis Config properties
+#mybatis:
+#  type-aliases-package: com.zyt.charging.commons.domain
+#  mapper-locations: classpath:mapper/*.xml
+
+# Services Versions
+service:
+  version: 1.0.0
+
+# Dubbo Config properties
+dubbo:
+  ## Base packages to scan Dubbo Component：@com.alibaba.dubbo.config.annotation.Service
+  scan:
+    basePackages: com.zyt.charging.provider.api.impl
+  ## ApplicationConfig Bean
+  application:
+    id: charging-provicer
+    name: charging-provicer
+    qos-port: 22222
+    qos-enable: true
+  ## ProtocolConfig Bean
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 20880
+    status: server
+    serialization: kryo
+  ## RegistryConfig Bean
+  registry:
+    protocol: zookeeper
+    address: 192.168.38.128:2181,192.168.38.128:2182,192.168.38.128:2183
+## Enables Dubbo All Endpoints
+#management:
+#  endpoint:
+#    dubbo:
+#      enabled: true
+#    dubbo-shutdown:
+#      enabled: true
+#    dubbo-configs:
+#      enabled: true
+#    dubbo-services:
+#      enabled: true
+#    dubbo-references:
+#      enabled: true
+#    dubbo-properties:
+#      enabled: true
+#  # Dubbo Health
+#  health:
+#    dubbo:
+#      status:
+#        ## StatusChecker Name defaults (default : "memory", "load" )
+#        defaults: memory
+#        ## StatusChecker Name extras (default : empty )
+#        extras: load,threadpool

@@ -1,0 +1,67 @@
+spring:
+  application:
+    name: charging-web
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    database: 0
+    host: 192.168.38.128
+    port: 6379
+    timeout: 10000
+server:
+  port: 8080
+
+# MyBatis Config properties
+#mybatis:
+#  type-aliases-package: com.zyt.charging.commons.domain
+#  mapper-locations: classpath:mapper/*.xml
+
+# Services Versions
+service:
+  version: 1.0.0
+
+# Dubbo Config properties
+dubbo:
+  ## Base packages to scan Dubbo Component：@com.alibaba.dubbo.config.annotation.Service
+  scan:
+    basePackages: com.zyt.charging.web.controller
+  ## ApplicationConfig Bean
+  application:
+    id: charging-web
+    name: charging-web
+  ## ProtocolConfig Bean
+  protocol:
+    id: dubbo
+    name: dubbo
+    serialization: kryo
+  ## RegistryConfig Bean
+  registry:
+    protocol: zookeeper
+    address: 192.168.38.128:2181,192.168.38.128:2182,192.168.38.128:2183
+# Enables Dubbo All Endpoints
+management:
+  endpoint:
+    dubbo:
+      enabled: true
+    dubbo-shutdown:
+      enabled: true
+    dubbo-configs:
+      enabled: true
+    dubbo-services:
+      enabled: true
+    dubbo-references:
+      enabled: true
+    dubbo-properties:
+      enabled: true
+  # Dubbo Health
+  health:
+    dubbo:
+      status:
+        ## StatusChecker Name defaults (default : "memory", "load" )
+        defaults: memory
+        ## StatusChecker Name extras (default : empty )
+        extras: load,threadpool
