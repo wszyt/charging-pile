@@ -19,7 +19,7 @@
         <java.version>1.8</java.version>
         <dubbo.version>2.7.3</dubbo.version>
         <curator.version>4.2.0</curator.version>
-        <zookeeper.version>3.4.13</zookeeper.version>
+        <zookeeper.version>3.4.14</zookeeper.version>
         <kyro.serializers.version>0.45</kyro.serializers.version>
         <kyro.version>4.0.2</kyro.version>
     </properties>
