@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.charging.provider.manager.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zyt.charging.provider.entity.DO.UserInfoDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <update id="updateUserInfo" parameterType="com.zyt.charging.provider.entity.DO.UserInfoDO">
+    update charge.user_info
+    <set>
+      <if test="sex != null">
+        sex = #{sex},
+      </if>
+      <if test="phone != null">
+        phone = #{phone},
+      </if>
+      <if test="password != null">
+        password = #{password},
+      </if>
+      <if test="name != null">
+        `name` = #{name},
+      </if>
+      update_time = now()
+    </set>
+    where id = #{id}
+  </update>
+
+  <insert id="insertUserInfo" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO charge.user_info (
+      sex,
+      phone,
+      user_type,
+      username,
+      password,
+      `name`,
+      create_time,
+      update_time
+    )
+    VALUES (
+      #{sex},
+      #{phone},
+      #{userType},
+      #{username},
+      #{password},
+      #{name},
+      now(),
+      now()
+    )
+  </insert>
+
+</mapper>

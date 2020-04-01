@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.charging.provider.manager.ChargeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zyt.charging.provider.entity.DO.ChargeInfoDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="charge_times" jdbcType="INTEGER" property="chargeTimes" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="price_type" jdbcType="INTEGER" property="priceType" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="place_code" jdbcType="VARCHAR" property="placeCode" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <update id="updateChargeInfo" parameterType="com.zyt.charging.provider.entity.DO.ChargeInfoDO">
+    update charge.charge_info
+    <set>
+      <if test="chargeTimes != null">
+        charge_times = #{chargeTimes},
+      </if>
+      <if test="price != null">
+        price = #{price},
+      </if>
+      <if test="priceType != null">
+        price_type = #{priceType},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="code != null">
+        code = #{code},
+      </if>
+      <if test="city != null">
+        city = #{city},
+      </if>
+      <if test="placeCode != null">
+        place_code = #{placeCode},
+      </if>
+      <if test="type != null">
+        type = #{type},
+      </if>
+        update_time = now()
+    </set>
+    where id = #{id}
+  </update>
+
+
+  <select id="count" resultType="java.lang.Integer">
+    select COUNT(*) FROM
+      article_content
+    WHERE
+      sub_sort = #{subSort}
+  </select>
+</mapper>

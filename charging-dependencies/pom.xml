@@ -22,6 +22,9 @@
         <zookeeper.version>3.4.13</zookeeper.version>
         <kyro.serializers.version>0.45</kyro.serializers.version>
         <kyro.version>4.0.2</kyro.version>
+        <druid.version>1.1.21</druid.version>
+        <mybatis.version>2.1.2</mybatis.version>
+        <pagehepler.version>1.2.13</pagehepler.version>
     </properties>
 
     <dependencyManagement>
@@ -57,7 +60,27 @@
                 <artifactId>kryo</artifactId>
                 <version>${kyro.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <scope>runtime</scope>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehepler.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
