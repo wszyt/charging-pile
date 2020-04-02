@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zyt.charging.provider.manager.UserInfoMapper">
+<mapper namespace="com.zyt.charging.provider.mapper.UserInfoMapper">
   <resultMap id="BaseResultMap" type="com.zyt.charging.provider.entity.DO.UserInfoDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
@@ -35,24 +35,10 @@
 
   <insert id="insertUserInfo" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO charge.user_info (
-      sex,
-      phone,
-      user_type,
-      username,
-      password,
-      `name`,
-      create_time,
-      update_time
+      sex, phone, user_type, username, password, `name`, create_time,update_time
     )
     VALUES (
-      #{sex},
-      #{phone},
-      #{userType},
-      #{username},
-      #{password},
-      #{name},
-      now(),
-      now()
+      #{sex}, #{phone}, #{userType}, #{username}, #{password}, #{name}, now(), now()
     )
   </insert>
 
