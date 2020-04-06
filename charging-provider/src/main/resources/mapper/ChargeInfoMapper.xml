@@ -16,7 +16,7 @@
   </resultMap>
 
   <update id="updateChargeInfo" parameterType="com.zyt.charging.provider.entity.DO.ChargeInfoDO">
-    update charge.charge_info
+    update charging.charge_info
     <set>
       <if test="chargeTimes != null">
         charge_times = #{chargeTimes},

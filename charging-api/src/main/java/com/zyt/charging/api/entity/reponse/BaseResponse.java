@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class BaseResponse implements Serializable {
+public class BaseResponse<T> implements Serializable {
     public static final int STATUS_SUCCESS = 200;
     public static final int STATUS_FAIL = 500;
     private static final long serialVersionUID = 5685219805243635527L;

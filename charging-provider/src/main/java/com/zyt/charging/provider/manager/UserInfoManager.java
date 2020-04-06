@@ -5,6 +5,8 @@ import com.zyt.charging.provider.mapper.UserInfoMapper;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @author: zyt
  * @Date: 2020/4/2
@@ -22,5 +24,8 @@ public class UserInfoManager {
       return userInfoMapper.updateUserInfo(userInfoDO);
     }
 
+    public List<UserInfoDO> selectUserInfo(UserInfoDO userInfoDO) {
+        return userInfoMapper.selectUserInfo(userInfoDO);
+    }
 
 }

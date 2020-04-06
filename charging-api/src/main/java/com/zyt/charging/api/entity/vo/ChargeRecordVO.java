@@ -1,4 +1,4 @@
-package com.zyt.charging.provider.entity.DO;
+package com.zyt.charging.api.entity.vo;
 
 import lombok.Data;
 
@@ -6,10 +6,10 @@ import java.util.Date;
 
 /**
  * @author: zyt
- * @Date: 2020/4/1
+ * @Date: 2020/4/6
  */
 @Data
-public class ChargeRecordDO {
+public class ChargeRecordVO {
     private Long id;
     private Integer chargeInfoId;
     private Integer userInfoId;
