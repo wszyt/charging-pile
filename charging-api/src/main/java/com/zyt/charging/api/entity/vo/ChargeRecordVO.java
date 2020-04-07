@@ -1,5 +1,6 @@
 package com.zyt.charging.api.entity.vo;
 
+import java.io.Serializable;
 import lombok.Data;
 
 import java.util.Date;
@@ -9,7 +10,7 @@ import java.util.Date;
  * @Date: 2020/4/6
  */
 @Data
-public class ChargeRecordVO {
+public class ChargeRecordVO implements Serializable {
     private Long id;
     private Integer chargeInfoId;
     private Integer userInfoId;

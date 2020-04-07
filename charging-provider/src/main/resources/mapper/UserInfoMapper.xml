@@ -39,10 +39,34 @@
 
   <insert id="insertUserInfo" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO charging.user_info (
-      sex, phone, user_type, username, password, `name`, email, create_time,update_time
+      sex,
+      <if test="phone != null">
+        phone,
+      </if>
+      phone,
+      user_type,
+      username,
+      password,
+      `name`,
+      <if test="email != null">
+        email,
+      </if>
+      create_time,
+      update_time
     )
     VALUES (
-      #{sex}, #{phone}, #{userType}, #{username}, #{password}, #{name},  #{email}, now(), now()
+      #{sex},
+      <if test="phone != null">
+        #{phone},
+      </if>
+      #{userType},
+      #{username},
+      #{password},
+      #{name},
+      <if test="email != null">
+        #{email},
+      </if>
+      now(), now()
     )
   </insert>
 
@@ -57,7 +81,7 @@
         and `name` like concat('%', #{name}, '%')
       </if>
       <if test="email != null and email != ''">
-        email = #{email},
+        and email = #{email},
       </if>
     </where>
   </select>

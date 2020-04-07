@@ -1,6 +1,7 @@
 package com.zyt.charging.provider.mapper;
 
 import com.zyt.charging.provider.entity.DO.ChargeInfoDO;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,5 +10,25 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ChargeInfoMapper {
+
+    /**
+     * 插入
+     * @param chargeInfoDO
+     * @return
+     */
+    int insertChargeInfo(ChargeInfoDO chargeInfoDO);
+
+    /**
+     * 更新
+     * @param chargeInfoDO
+     * @return
+     */
     int updateChargeInfo(ChargeInfoDO chargeInfoDO);
+
+    /**
+     * 根据条件查询
+     * @param chargeInfoDO
+     * @return
+     */
+    List<ChargeInfoDO> selectChargeInfo(ChargeInfoDO chargeInfoDO);
 }

@@ -15,6 +15,32 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
 
+  <insert id="insertChargeInfo" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO charging.charge_info (
+    charge_times,
+    price,
+    price_type,
+    status,
+    code,
+    city,
+    place_code,
+    `type`,
+    create_time,
+    update_time
+    )
+    VALUES (
+    #{charge_times},
+    #{price},
+    #{price_type},
+    #{status},
+    #{code},
+    #{city},
+    #{place_code},
+    #{type},
+    now(), now()
+    )
+  </insert>
+
   <update id="updateChargeInfo" parameterType="com.zyt.charging.provider.entity.DO.ChargeInfoDO">
     update charging.charge_info
     <set>
@@ -47,11 +73,20 @@
     where id = #{id}
   </update>
 
-
-  <select id="count" resultType="java.lang.Integer">
-    select COUNT(*) FROM
-      article_content
-    WHERE
-      sub_sort = #{subSort}
+  <select id="selectChargeInfo" resultMap="BaseResultMap" parameterType="com.zyt.charging.provider.entity.DO.ChargeInfoDO">
+    select * FROM
+    charging.charge_info
+    <where>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+      <if test="city != null and city != ''">
+        and city like concat(#{city}, '%')
+      </if>
+      <if test="type != null">
+        and `type` = #{type},
+      </if>
+    </where>
   </select>
+
 </mapper>

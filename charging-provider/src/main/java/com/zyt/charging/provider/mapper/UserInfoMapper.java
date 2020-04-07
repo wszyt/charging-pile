@@ -11,9 +11,25 @@ import java.util.List;
  */
 @Mapper
 public interface UserInfoMapper {
+
+    /**
+     * 更新
+     * @param userInfoDO
+     * @return
+     */
     int updateUserInfo(UserInfoDO userInfoDO);
 
+    /**
+     * 插入用户信息
+     * @param userInfoDO
+     * @return
+     */
     int insertUserInfo(UserInfoDO userInfoDO);
 
+    /**
+     * 根据条件查询用户信息
+     * @param userInfoDO
+     * @return
+     */
     List<UserInfoDO> selectUserInfo(UserInfoDO userInfoDO);
 }
