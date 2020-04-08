@@ -26,4 +26,8 @@ public class ChargeInfoManager {
     public List<ChargeInfoDO> selectChargeInfo(ChargeInfoDO chargeInfoDO) {
         return chargeInfoMapper.selectChargeInfo(chargeInfoDO);
     }
+
+    public ChargeInfoDO selectChargeInfoById(Long id) {
+        return chargeInfoMapper.selectChargeInfoById(id);
+    }
 }

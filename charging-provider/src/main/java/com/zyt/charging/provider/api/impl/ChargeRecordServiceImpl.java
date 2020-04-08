@@ -19,7 +19,7 @@ public class ChargeRecordServiceImpl implements ChargeRecordService {
     ChargeRecordManager chargeRecordManager;
 
     @Override
-    public BaseResult countChargeRecord(ChargeRecordCountReq request) {
+    public BaseResult<Integer> countChargeRecord(ChargeRecordCountReq request) {
         int i = chargeRecordManager.countChargeRecord(request.getStartTime(), request.getEndTime());
         return BaseResult.success(i);
     }

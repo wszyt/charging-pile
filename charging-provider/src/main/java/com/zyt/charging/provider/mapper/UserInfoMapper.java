@@ -1,5 +1,6 @@
 package com.zyt.charging.provider.mapper;
 
+import com.zyt.charging.provider.entity.DO.ChargeInfoDO;
 import com.zyt.charging.provider.entity.DO.UserInfoDO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -32,4 +33,11 @@ public interface UserInfoMapper {
      * @return
      */
     List<UserInfoDO> selectUserInfo(UserInfoDO userInfoDO);
+
+    /**
+     * 根据Id查询UserInfoDO
+     * @param id
+     * @return
+     */
+    UserInfoDO selectUserInfoById(Long id);
 }

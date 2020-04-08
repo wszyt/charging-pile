@@ -14,5 +14,5 @@ public interface ChargeRecordService {
    * @param request
    * @return
    */
-    BaseResult countChargeRecord(ChargeRecordCountReq request);
+    BaseResult<Integer> countChargeRecord(ChargeRecordCountReq request);
 }

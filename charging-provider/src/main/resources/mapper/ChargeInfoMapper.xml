@@ -89,4 +89,10 @@
     </where>
   </select>
 
+  <select id="selectChargeInfoById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select * from
+    charging.charge_info
+    where id = #{id}
+  </select>
+
 </mapper>

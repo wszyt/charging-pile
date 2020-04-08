@@ -25,7 +25,7 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
     ChargeInfoManager chargeInfoManager;
 
     @Override
-    public BaseResult insertChargeInfo(ChargeInfoChangeReq request) {
+    public BaseResult<Void> insertChargeInfo(ChargeInfoChangeReq request) {
         if (request == null || request.getChargeInfoVO() == null) {
             return BaseResult.fail("充电桩信息不能为空");
         }
@@ -41,7 +41,7 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
     }
 
     @Override
-    public BaseResult updateChargeInfo(ChargeInfoChangeReq request) {
+    public BaseResult<Void> updateChargeInfo(ChargeInfoChangeReq request) {
         if (request.getChargeInfoVO().getId() == null) {
             return BaseResult.fail("充电桩ID不能为空");
         }
@@ -57,7 +57,7 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
     }
 
     @Override
-    public BaseResult selectChargeInfo(ChargeInfoQueryReq request) {
+    public BaseResult<List<ChargeInfoVO>> selectChargeInfo(ChargeInfoQueryReq request) {
         ChargeInfoDO chargeInfoDO = new ChargeInfoDO();
         chargeInfoDO.setStatus(request.getStatus());
         chargeInfoDO.setCity(request.getCity());
@@ -71,5 +71,20 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
             chargeInfoVOS.add(chargeInfoVO);
         });
         return BaseResult.success(chargeInfoVOS);
+    }
+
+    @Override
+    public BaseResult<ChargeInfoVO> selectChargeInfoById(ChargeInfoQueryReq request) {
+        if (request == null || request.getId() == null) {
+            return BaseResult.fail("参数不能为空");
+        }
+
+        ChargeInfoDO chargeInfoDO = chargeInfoManager.selectChargeInfoById(request.getId());
+        if (chargeInfoDO == null) {
+            return BaseResult.success();
+        }
+        ChargeInfoVO chargeInfoVO = new ChargeInfoVO();
+        BeanUtils.copyProperties(chargeInfoDO, chargeInfoVO);
+        return BaseResult.success(chargeInfoVO);
     }
 }

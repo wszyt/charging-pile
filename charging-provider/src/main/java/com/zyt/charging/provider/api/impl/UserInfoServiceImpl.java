@@ -27,7 +27,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
     @Override
-    public BaseResult insertUserInfo(UserInfoChangeReq request) {
+    public BaseResult<Void> insertUserInfo(UserInfoChangeReq request) {
         if (StringUtils.isEmpty(request.getUserInfoVO().getName()) || StringUtils.isEmpty(request.getUserInfoVO().getUsername())
             || StringUtils.isEmpty(request.getUserInfoVO().getPassword()) || StringUtils.isEmpty(request.getUserInfoVO().getSex())) {
             return BaseResult.fail("参数不能为空");
@@ -44,7 +44,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public BaseResult updateUserInfo(UserInfoChangeReq request) {
+    public BaseResult<Void> updateUserInfo(UserInfoChangeReq request) {
         if (request.getUserInfoVO().getId() == null) {
             return BaseResult.fail("用户ID不能为空");
         }
@@ -60,7 +60,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public BaseResult selectUserInfo(UserInfoQueryReq request) {
+    public BaseResult<List<UserInfoVO>> selectUserInfo(UserInfoQueryReq request) {
         UserInfoDO userInfoDO = new UserInfoDO();
         userInfoDO.setPhone(request.getPhone());
         userInfoDO.setName(request.getName());
@@ -74,5 +74,20 @@ public class UserInfoServiceImpl implements UserInfoService {
         });
 
         return BaseResult.success(userInfoVOS);
+    }
+
+    @Override
+    public BaseResult<UserInfoVO> selectUserInfoById(UserInfoQueryReq request) {
+        if (request == null || request.getId() == null) {
+            return BaseResult.fail("参数不能为空");
+        }
+
+        UserInfoDO userInfoDO = userInfoManager.selectUserInfoById(request.getId());
+        if (userInfoDO == null) {
+            return BaseResult.success();
+        }
+        UserInfoVO userInfoVO = new UserInfoVO();
+        BeanUtils.copyProperties(userInfoDO, userInfoVO);
+        return BaseResult.success(userInfoVO);
     }
 }

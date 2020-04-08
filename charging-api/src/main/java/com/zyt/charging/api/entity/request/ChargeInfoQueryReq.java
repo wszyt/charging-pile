@@ -9,6 +9,7 @@ import lombok.Data;
  */
 @Data
 public class ChargeInfoQueryReq implements Serializable {
+  private Long id;
   private Integer status;
   private String city;
   private String type;

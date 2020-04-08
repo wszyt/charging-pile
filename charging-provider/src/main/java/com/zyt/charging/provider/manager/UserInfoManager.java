@@ -1,5 +1,6 @@
 package com.zyt.charging.provider.manager;
 
+import com.zyt.charging.provider.entity.DO.ChargeInfoDO;
 import com.zyt.charging.provider.entity.DO.UserInfoDO;
 import com.zyt.charging.provider.mapper.UserInfoMapper;
 import javax.annotation.Resource;
@@ -28,4 +29,7 @@ public class UserInfoManager {
         return userInfoMapper.selectUserInfo(userInfoDO);
     }
 
+    public UserInfoDO selectUserInfoById(Long id) {
+        return userInfoMapper.selectUserInfoById(id);
+    }
 }

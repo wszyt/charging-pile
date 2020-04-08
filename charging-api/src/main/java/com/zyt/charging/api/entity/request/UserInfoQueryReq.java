@@ -9,7 +9,9 @@ import lombok.Data;
  */
 @Data
 public class UserInfoQueryReq implements Serializable {
+    private Long id;
     private Integer phone;
     private String name;
     private String email;
+    private String username;
 }

@@ -31,4 +31,11 @@ public interface ChargeInfoMapper {
      * @return
      */
     List<ChargeInfoDO> selectChargeInfo(ChargeInfoDO chargeInfoDO);
+
+    /**
+     * 根据Id查询ChargeInfo
+     * @param id
+     * @return
+     */
+    ChargeInfoDO selectChargeInfoById(Long id);
 }
