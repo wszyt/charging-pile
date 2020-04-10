@@ -39,4 +39,10 @@ public interface ChargeInfoService {
    * @return
    */
   BaseResult<ChargeInfoVO> selectChargeInfoById(ChargeInfoQueryReq request);
+
+  /**
+   * 刷新redis中充电桩坐标
+   * @return
+   */
+  BaseResult<Void> flashPlaceCode();
 }

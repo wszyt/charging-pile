@@ -1,12 +1,10 @@
-package com.zyt.charging.web.utlis;
+package com.zyt.charging.provider.api.impl;
 
-import java.util.List;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.Resource;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 
 @Component
 public class RedisService {
@@ -39,8 +37,8 @@ public class RedisService {
         stringRedisTemplate.opsForList().leftPush(key, value);
     }
 
-    public List<String> getListString(String key, Long start, Long end) {
-        return stringRedisTemplate.opsForList().range(key, start, -end);
+    public void del(String key) {
+        stringRedisTemplate.delete(key);
     }
 
     public String getString(String key) {

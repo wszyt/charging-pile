@@ -1,5 +1,6 @@
 package com.zyt.charging.provider.api.impl;
 
+import com.zyt.charging.api.entity.enums.RedisEnum;
 import com.zyt.charging.api.entity.reponse.BaseResult;
 import com.zyt.charging.api.entity.request.ChargeInfoChangeReq;
 import com.zyt.charging.api.entity.request.ChargeInfoQueryReq;
@@ -23,6 +24,8 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
 
     @Resource
     ChargeInfoManager chargeInfoManager;
+    @Resource
+    RedisService redisService;
 
     @Override
     public BaseResult<Void> insertChargeInfo(ChargeInfoChangeReq request) {
@@ -86,5 +89,17 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
         ChargeInfoVO chargeInfoVO = new ChargeInfoVO();
         BeanUtils.copyProperties(chargeInfoDO, chargeInfoVO);
         return BaseResult.success(chargeInfoVO);
+    }
+
+
+    @Override
+    public BaseResult<Void> flashPlaceCode() {
+        ChargeInfoDO chargeInfoDO = new ChargeInfoDO();
+        List<ChargeInfoDO> chargeInfoDOS = chargeInfoManager.selectChargeInfo(chargeInfoDO);
+        redisService.del(RedisEnum.PLACE_CODE.getCode());
+        chargeInfoDOS.forEach(chargeInfo -> {
+            redisService.setListString(RedisEnum.PLACE_CODE.getCode(), chargeInfo.getPlaceCode());
+        });
+        return BaseResult.success();
     }
 }

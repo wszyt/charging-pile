@@ -1,11 +1,17 @@
 package com.zyt.charging.web.controller;
 
+import com.zyt.charging.api.entity.enums.RedisEnum;
 import com.zyt.charging.api.entity.reponse.BaseResult;
+import com.zyt.charging.api.entity.reponse.PlaceCodeResp;
 import com.zyt.charging.api.entity.request.ChargeInfoChangeReq;
 import com.zyt.charging.api.entity.request.ChargeInfoQueryReq;
 import com.zyt.charging.api.entity.vo.ChargeInfoVO;
 import com.zyt.charging.api.service.ChargeInfoService;
+import com.zyt.charging.web.utlis.RedisService;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Resource;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +23,8 @@ public class ChargeController {
 
   @Reference(version = "${service.version}")
   ChargeInfoService chargeInfoService;
+  @Resource
+  RedisService redisService;
 
     @RequestMapping(value = "/selectChargeInfo", method = RequestMethod.POST)
     public BaseResult<ChargeInfoVO> selectChargeInfoById(ChargeInfoQueryReq request) {
@@ -45,7 +53,7 @@ public class ChargeController {
       }
 
       if (chargeInfoVOBaseResult.getData() == null) {
-          return BaseResult.fail("改Id没有对应充电桩信息");
+          return BaseResult.fail("该Id没有对应充电桩信息");
       }
       ChargeInfoChangeReq chargeInfoChangeReq = new ChargeInfoChangeReq();
       chargeInfoChangeReq.setChargeInfoVO(request.getChargeInfoVO());
@@ -55,5 +63,25 @@ public class ChargeController {
       chargeInfoChangeReq.setChargeInfoVO(request.getChargeInfoVO());
       return chargeInfoService.insertChargeInfo(chargeInfoChangeReq);
     }
+  }
+
+  @RequestMapping(value = "/getPlaceCode")
+  public String getChargingPilePlaceCode() {
+    List<String> listString = redisService.getListString(RedisEnum.PLACE_CODE.getCode(), 0L, -1L);
+    List<PlaceCodeResp> placeCodeRespList = new ArrayList<>();
+    listString.forEach(code -> {
+      String[] split = code.split(",");
+      PlaceCodeResp placeCodeResp = new PlaceCodeResp();
+      placeCodeResp.setXCoordinate(new BigDecimal(split[0]));
+      placeCodeResp.setYCoordinate(new BigDecimal(split[1]));
+      placeCodeRespList.add(placeCodeResp);
+    });
+    return null;
+  }
+
+  @RequestMapping(value = "/flashPlaceCode")
+  public String flashPlaceCode() {
+    BaseResult<Void> baseResult = chargeInfoService.flashPlaceCode();
+    return null;
   }
 }

@@ -15,10 +15,10 @@
     select COUNT(*) FROM
       chaging.charge_record
     <where>
-      <if test="create_time != null">
+      <if test="startTime != null">
         and create_time > #{startTime}
       </if>
-      <if test="update_time != null">
+      <if test="endTime != null">
         and #{endTime} > create_time
       </if>
     </where>

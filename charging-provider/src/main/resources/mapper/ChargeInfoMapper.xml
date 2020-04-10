@@ -7,7 +7,6 @@
     <result column="price" jdbcType="INTEGER" property="price" />
     <result column="price_type" jdbcType="INTEGER" property="priceType" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="place_code" jdbcType="VARCHAR" property="placeCode" />
     <result column="type" jdbcType="VARCHAR" property="type" />
@@ -29,13 +28,13 @@
     update_time
     )
     VALUES (
-    #{charge_times},
+    #{chargeTimes},
     #{price},
-    #{price_type},
+    #{priceType},
     #{status},
     #{code},
     #{city},
-    #{place_code},
+    #{placeCode},
     #{type},
     now(), now()
     )
