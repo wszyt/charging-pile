@@ -33,7 +33,7 @@ public class RedisService {
         }
     }
 
-    public void setListString(String key, String value) {
+    public void lPushListString(String key, String value) {
         stringRedisTemplate.opsForList().leftPush(key, value);
     }
 

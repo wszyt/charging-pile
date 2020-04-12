@@ -98,7 +98,7 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
         List<ChargeInfoDO> chargeInfoDOS = chargeInfoManager.selectChargeInfo(chargeInfoDO);
         redisService.del(RedisEnum.PLACE_CODE.getCode());
         chargeInfoDOS.forEach(chargeInfo -> {
-            redisService.setListString(RedisEnum.PLACE_CODE.getCode(), chargeInfo.getPlaceCode());
+            redisService.lPushListString(RedisEnum.PLACE_CODE.getCode(), chargeInfo.getPlaceCode());
         });
         return BaseResult.success();
     }
