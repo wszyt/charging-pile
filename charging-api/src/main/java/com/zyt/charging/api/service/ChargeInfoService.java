@@ -12,44 +12,44 @@ import java.util.List;
  */
 public interface ChargeInfoService {
 
-  /**
-   * 插入充电桩信息
-   * @param request
-   * @return
-   */
-  BaseResult<Void> insertChargeInfo(ChargeInfoChangeReq request);
+    /**
+     * 插入充电桩信息
+     * @param request
+     * @return
+     */
+    BaseResult<Void> insertChargeInfo(ChargeInfoChangeReq request);
 
-  /**
-   * 更新充电桩信息
-   * @param request
-   * @return
-   */
-  BaseResult<Void> updateChargeInfo(ChargeInfoChangeReq request);
+    /**
+     * 更新充电桩信息
+     * @param request
+     * @return
+     */
+    BaseResult<Void> updateChargeInfo(ChargeInfoChangeReq request);
 
-  /**
-   * 根据条件查询充电桩信息
-   * @param request
-   * @return
-   */
-  BaseResult<List<ChargeInfoVO>> selectChargeInfo(ChargeInfoQueryReq request);
+    /**
+     * 根据条件查询充电桩信息
+     * @param request
+     * @return
+     */
+    BaseResult<List<ChargeInfoVO>> selectChargeInfo(ChargeInfoQueryReq request);
 
-  /**
-   * 根据Id查询充电桩信息
-   * @param request
-   * @return
-   */
-  BaseResult<ChargeInfoVO> selectChargeInfoById(ChargeInfoQueryReq request);
+    /**
+     * 根据Id查询充电桩信息
+     * @param request
+     * @return
+     */
+    BaseResult<ChargeInfoVO> selectChargeInfoById(ChargeInfoQueryReq request);
 
-  /**
-   * 根据充电桩编号code查询充电桩信息
-   * @param request
-   * @return
-   */
-  BaseResult<ChargeInfoVO> selectChargeInfoByCode(ChargeInfoQueryReq request);
+    /**
+     * 根据充电桩编号code查询充电桩信息
+     * @param request
+     * @return
+     */
+    BaseResult<ChargeInfoVO> selectChargeInfoByCode(ChargeInfoQueryReq request);
 
-  /**
-   * 刷新redis中充电桩坐标
-   * @return
-   */
-  BaseResult<Void> flashPlaceCode();
+    /**
+     * 刷新redis中充电桩坐标
+     * @return
+     */
+    BaseResult<Void> flashPlaceCode();
 }
