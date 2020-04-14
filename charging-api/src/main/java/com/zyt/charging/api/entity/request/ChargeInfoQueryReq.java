@@ -13,4 +13,5 @@ public class ChargeInfoQueryReq implements Serializable {
   private Integer status;
   private String city;
   private String type;
+  private String code;
 }

@@ -1,4 +1,4 @@
-package com.zyt.charging.api.entity.reponse;
+package com.zyt.charging.web.resp;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

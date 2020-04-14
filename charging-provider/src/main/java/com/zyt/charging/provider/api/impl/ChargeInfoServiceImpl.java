@@ -91,6 +91,21 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
         return BaseResult.success(chargeInfoVO);
     }
 
+    @Override
+    public BaseResult<ChargeInfoVO> selectChargeInfoByCode(ChargeInfoQueryReq request) {
+        if (request == null || request.getCode() == null) {
+            return BaseResult.fail("参数不能为空");
+        }
+
+        ChargeInfoDO chargeInfoDO = chargeInfoManager.selectChargeInfoByCode(request.getCode());
+        if (chargeInfoDO == null) {
+            return BaseResult.success();
+        }
+        ChargeInfoVO chargeInfoVO = new ChargeInfoVO();
+        BeanUtils.copyProperties(chargeInfoDO, chargeInfoVO);
+        return BaseResult.success(chargeInfoVO);
+    }
+
 
     @Override
     public BaseResult<Void> flashPlaceCode() {

@@ -15,6 +15,8 @@ public class ChargeInfoDO {
     private Integer chargeTimes;
     // 充电单价
     private Integer price;
+    // 功率
+    private Integer power;
     // 计费类型
     private Integer priceType;
     // 充电桩状态

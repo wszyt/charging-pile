@@ -1,6 +1,7 @@
 package com.zyt.charging.web.controller;
 
 import com.zyt.charging.api.entity.reponse.BaseResult;
+import com.zyt.charging.api.entity.request.ChargeRecordChangeReq;
 import com.zyt.charging.api.entity.request.ChargeRecordCountReq;
 import com.zyt.charging.api.service.ChargeRecordService;
 import org.apache.dubbo.config.annotation.Reference;
@@ -15,11 +16,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ChargeRecordController {
 
-      @Reference(version = "${service.version}")
-      ChargeRecordService chargeRecordService;
+  @Reference(version = "${service.version}")
+  ChargeRecordService chargeRecordService;
 
-      @RequestMapping(value = "countChargeRecord", method = RequestMethod.GET)
-      public BaseResult<Integer> countChargeRecord(ChargeRecordCountReq chargeRecordCountReq) {
-          return chargeRecordService.countChargeRecord(chargeRecordCountReq);
-      }
+  @RequestMapping(value = "countChargeRecord", method = RequestMethod.GET)
+  public BaseResult<Integer> countChargeRecord(ChargeRecordCountReq chargeRecordCountReq) {
+    return chargeRecordService.countChargeRecord(chargeRecordCountReq);
+  }
+
+  @RequestMapping(value = "charging", method = RequestMethod.POST)
+  public String charging(ChargeRecordChangeReq request) {
+    if (request == null || !request.checkParam()) {
+      return "缺少必要参数";
+    }
+
+    BaseResult<Integer> baseResult = chargeRecordService.insertChargeRecord(request);
+    return null;
+  }
 }

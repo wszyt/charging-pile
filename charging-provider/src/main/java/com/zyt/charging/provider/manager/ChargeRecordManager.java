@@ -1,5 +1,6 @@
 package com.zyt.charging.provider.manager;
 
+import com.zyt.charging.provider.entity.DO.ChargeRecordDO;
 import com.zyt.charging.provider.mapper.ChargeRecordMapper;
 import java.util.Date;
 import javax.annotation.Resource;
@@ -16,5 +17,9 @@ public class ChargeRecordManager {
 
     public int countChargeRecord(Date startTime, Date endTime) {
         return chargeRecordMapper.countChargeRecord(startTime, endTime);
+    }
+
+    public int insertChargeRecord(ChargeRecordDO chargeRecordDO) {
+        return chargeRecordMapper.insertChargeRecord(chargeRecordDO);
     }
 }

@@ -1,6 +1,7 @@
 package com.zyt.charging.api.service;
 
 import com.zyt.charging.api.entity.reponse.BaseResult;
+import com.zyt.charging.api.entity.request.ChargeRecordChangeReq;
 import com.zyt.charging.api.entity.request.ChargeRecordCountReq;
 
 /**
@@ -15,4 +16,11 @@ public interface ChargeRecordService {
    * @return
    */
     BaseResult<Integer> countChargeRecord(ChargeRecordCountReq request);
+
+  /**
+   * 充电完成记录充电信息
+   * @param request
+   * @return
+   */
+    BaseResult<Integer> insertChargeRecord(ChargeRecordChangeReq request);
 }

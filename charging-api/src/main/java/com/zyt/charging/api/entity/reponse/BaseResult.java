@@ -6,8 +6,8 @@ import java.io.Serializable;
 
 @Data
 public class BaseResult<T> implements Serializable {
-    public static final int STATUS_SUCCESS = 200;
-    public static final int STATUS_FAIL = 500;
+    public static final Integer STATUS_SUCCESS = 200;
+    public static final Integer STATUS_FAIL = 500;
     private static final long serialVersionUID = 5685219805243635527L;
 
     private Integer status;
@@ -32,7 +32,7 @@ public class BaseResult<T> implements Serializable {
         return new BaseResult<T>(STATUS_SUCCESS, "成功", data);
     }
 
-    public static <T> BaseResult<T> success(String message, T data) {
+    public static <T> BaseResult<T> success(T data, String message) {
         return new BaseResult<T>(STATUS_SUCCESS, message, data);
     }
 

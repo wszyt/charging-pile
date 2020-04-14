@@ -6,10 +6,37 @@
     <result column="charge_info_id" jdbcType="INTEGER" property="chargeInfoId"/>
     <result column="user_info_id" jdbcType="INTEGER" property="userInfoId"/>
     <result column="charge_time" jdbcType="INTEGER" property="chargeTime"/>
-    <result column="charge_user" jdbcType="INTEGER" property="chargeUser"/>
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+    <result column="power_used" jdbcType="INTEGER" property="powerUsed"/>
+    <result column="price_type" jdbcType="INTEGER" property="priceType"/>
+    <result column="cost" jdbcType="INTEGER" property="cost"/>
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
   </resultMap>
+
+  <insert id="insertChargeRecord" useGeneratedKeys="true" keyProperty="id" parameterType="com.zyt.charging.provider.entity.DO.ChargeRecordDO">
+    INSERT INTO charging.charge_record (
+    charge_info_id,
+    user_info_id,
+    charge_time,
+    start_time,
+    power_used,
+    price_type,
+    cost,
+    create_time,
+    update_time
+    )
+    VALUES (
+    #{chargeInfoId},
+    #{userInfoId},
+    #{chargeTime},
+    #{startTime},
+    #{powerUsed},
+    #{priceType},
+    #{cost},
+    now(), now()
+    )
+  </insert>
 
   <select id="countChargeRecord" resultType="java.lang.Integer">
     select COUNT(*) FROM

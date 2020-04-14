@@ -5,6 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="charge_times" jdbcType="INTEGER" property="chargeTimes" />
     <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="power" jdbcType="INTEGER" property="power" />
     <result column="price_type" jdbcType="INTEGER" property="priceType" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="city" jdbcType="VARCHAR" property="city" />
@@ -14,10 +15,11 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
 
-  <insert id="insertChargeInfo" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertChargeInfo" useGeneratedKeys="true" keyProperty="id" parameterType="com.zyt.charging.provider.entity.DO.ChargeInfoDO">
     INSERT INTO charging.charge_info (
     charge_times,
     price,
+    power,
     price_type,
     status,
     code,
@@ -30,6 +32,7 @@
     VALUES (
     #{chargeTimes},
     #{price},
+    #{power},
     #{priceType},
     #{status},
     #{code},
@@ -48,6 +51,9 @@
       </if>
       <if test="price != null">
         price = #{price},
+      </if>
+      <if test="power != null">
+        power = #{power},
       </if>
       <if test="priceType != null">
         price_type = #{priceType},
@@ -92,6 +98,12 @@
     select * from
     charging.charge_info
     where id = #{id}
+  </select>
+
+  <select id="selectChargeInfoByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from
+    charging.charge_info
+    where code = #{code}
   </select>
 
 </mapper>

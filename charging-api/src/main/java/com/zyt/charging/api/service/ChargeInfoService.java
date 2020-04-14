@@ -41,6 +41,13 @@ public interface ChargeInfoService {
   BaseResult<ChargeInfoVO> selectChargeInfoById(ChargeInfoQueryReq request);
 
   /**
+   * 根据充电桩编号code查询充电桩信息
+   * @param request
+   * @return
+   */
+  BaseResult<ChargeInfoVO> selectChargeInfoByCode(ChargeInfoQueryReq request);
+
+  /**
    * 刷新redis中充电桩坐标
    * @return
    */

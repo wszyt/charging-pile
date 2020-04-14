@@ -40,7 +40,7 @@ public class UserController {
             UserInfoQueryReq chargeInfoQueryReq = new UserInfoQueryReq();
             chargeInfoQueryReq.setId(chargeInfoVO.getId());
             BaseResult<UserInfoVO> chargeInfoVOBaseResult = userInfoService.selectUserInfoById(chargeInfoQueryReq);
-            if (chargeInfoVOBaseResult.getStatus() == BaseResult.STATUS_FAIL) {
+            if (BaseResult.STATUS_FAIL.equals(chargeInfoVOBaseResult.getStatus())) {
                 return BaseResult.fail(chargeInfoVOBaseResult.getMessage());
             }
 

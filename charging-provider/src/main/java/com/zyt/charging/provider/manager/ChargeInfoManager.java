@@ -24,10 +24,9 @@ public class ChargeInfoManager {
     public int insertChargeInfo(ChargeInfoDO chargeInfoDO) {
         int i = chargeInfoMapper.insertChargeInfo(chargeInfoDO);
         if (i > 0) {
-            redisService.setListString(RedisEnum.PLACE_CODE.getCode(), chargeInfoDO.getPlaceCode());
+            redisService.lPushListString(RedisEnum.PLACE_CODE.getCode(), chargeInfoDO.getPlaceCode());
         }
         return i;
-
     }
 
     public int updateChargeInfo(ChargeInfoDO chargeInfoDO) {
@@ -41,4 +40,8 @@ public class ChargeInfoManager {
     public ChargeInfoDO selectChargeInfoById(Long id) {
         return chargeInfoMapper.selectChargeInfoById(id);
     }
+
+    public ChargeInfoDO selectChargeInfoByCode(String code) {
+    return chargeInfoMapper.selectChargeInfoByCode(code);
+  }
 }

@@ -1,5 +1,6 @@
 package com.zyt.charging.provider.mapper;
 
+import com.zyt.charging.provider.entity.DO.ChargeRecordDO;
 import java.util.Date;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -10,5 +11,8 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface ChargeRecordMapper {
-    int countChargeRecord(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+  int countChargeRecord(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+  int insertChargeRecord(ChargeRecordDO chargeRecordDO);
 }

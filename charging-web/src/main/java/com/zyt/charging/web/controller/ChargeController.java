@@ -2,7 +2,7 @@ package com.zyt.charging.web.controller;
 
 import com.zyt.charging.api.entity.enums.RedisEnum;
 import com.zyt.charging.api.entity.reponse.BaseResult;
-import com.zyt.charging.api.entity.reponse.PlaceCodeResp;
+import com.zyt.charging.web.resp.PlaceCodeResp;
 import com.zyt.charging.api.entity.request.ChargeInfoChangeReq;
 import com.zyt.charging.api.entity.request.ChargeInfoQueryReq;
 import com.zyt.charging.api.entity.vo.ChargeInfoVO;
@@ -48,7 +48,7 @@ public class ChargeController {
       ChargeInfoQueryReq chargeInfoQueryReq = new ChargeInfoQueryReq();
       chargeInfoQueryReq.setId(chargeInfoVO.getId());
       BaseResult<ChargeInfoVO> chargeInfoVOBaseResult = chargeInfoService.selectChargeInfoById(chargeInfoQueryReq);
-      if (chargeInfoVOBaseResult.getStatus() == BaseResult.STATUS_FAIL) {
+      if (BaseResult.STATUS_FAIL.equals(chargeInfoVOBaseResult.getStatus())) {
         return BaseResult.fail(chargeInfoVOBaseResult.getMessage());
       }
 
