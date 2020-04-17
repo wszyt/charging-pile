@@ -1,15 +1,14 @@
-package com.zyt.charging.web.utlis;
+package com.zyt.charging.provider.manager;
 
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import javax.annotation.Resource;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
 @Component
-public class RedisService {
+public class RedisManager {
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
@@ -20,9 +19,7 @@ public class RedisService {
         stringRedisTemplate.opsForValue().set(key, value);
     }
 
-    public void setString(String key, Object object, Long time) {
-        // 如果是String 类型
-        String value = (String) object;
+    public void setString(String key, String value, Long time) {
         stringRedisTemplate.opsForValue().set(key, value);
         // 设置有效期 以秒为单位
         stringRedisTemplate.expire(key, time, TimeUnit.SECONDS);
@@ -35,12 +32,16 @@ public class RedisService {
         }
     }
 
-    public void setListString(String key, String value) {
+    public void lPushListString(String key, String value) {
         stringRedisTemplate.opsForList().leftPush(key, value);
     }
 
     public List<String> getListString(String key, Long start, Long end) {
         return stringRedisTemplate.opsForList().range(key, start, -end);
+    }
+
+    public void del(String key) {
+        stringRedisTemplate.delete(key);
     }
 
     public String getString(String key) {

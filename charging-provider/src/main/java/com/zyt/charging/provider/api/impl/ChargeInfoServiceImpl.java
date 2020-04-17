@@ -8,6 +8,7 @@ import com.zyt.charging.api.entity.vo.ChargeInfoVO;
 import com.zyt.charging.api.service.ChargeInfoService;
 import com.zyt.charging.provider.entity.DO.ChargeInfoDO;
 import com.zyt.charging.provider.manager.ChargeInfoManager;
+import com.zyt.charging.provider.manager.RedisManager;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.dubbo.config.annotation.Service;
@@ -25,7 +26,7 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
     @Resource
     ChargeInfoManager chargeInfoManager;
     @Resource
-    RedisService redisService;
+    RedisManager redisManager;
 
     @Override
     public BaseResult<Void> insertChargeInfo(ChargeInfoChangeReq request) {
@@ -111,9 +112,9 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
     public BaseResult<Void> flashPlaceCode() {
         ChargeInfoDO chargeInfoDO = new ChargeInfoDO();
         List<ChargeInfoDO> chargeInfoDOS = chargeInfoManager.selectChargeInfo(chargeInfoDO);
-        redisService.del(RedisEnum.PLACE_CODE.getCode());
+        redisManager.del(RedisEnum.PLACE_CODE.getCode());
         chargeInfoDOS.forEach(chargeInfo -> {
-            redisService.lPushListString(RedisEnum.PLACE_CODE.getCode(), chargeInfo.getPlaceCode());
+            redisManager.lPushListString(RedisEnum.PLACE_CODE.getCode(), chargeInfo.getPlaceCode());
         });
         return BaseResult.success();
     }

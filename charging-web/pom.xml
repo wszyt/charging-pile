@@ -49,10 +49,6 @@
             <artifactId>curator-framework</artifactId>
             <version>${curator.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
         <!-- boot end -->
 
         <dependency>
@@ -68,6 +64,7 @@
             <groupId>com.esotericsoftware</groupId>
             <artifactId>kryo</artifactId>
         </dependency>
+
 
         <dependency>
             <groupId>com.zyt</groupId>

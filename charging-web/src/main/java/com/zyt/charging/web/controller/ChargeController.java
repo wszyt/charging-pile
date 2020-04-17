@@ -2,12 +2,12 @@ package com.zyt.charging.web.controller;
 
 import com.zyt.charging.api.entity.enums.RedisEnum;
 import com.zyt.charging.api.entity.reponse.BaseResult;
+import com.zyt.charging.api.service.RedisService;
 import com.zyt.charging.web.resp.PlaceCodeResp;
 import com.zyt.charging.api.entity.request.ChargeInfoChangeReq;
 import com.zyt.charging.api.entity.request.ChargeInfoQueryReq;
 import com.zyt.charging.api.entity.vo.ChargeInfoVO;
 import com.zyt.charging.api.service.ChargeInfoService;
-import com.zyt.charging.web.utlis.RedisService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +67,11 @@ public class ChargeController {
 
   @RequestMapping(value = "/getPlaceCode")
   public String getChargingPilePlaceCode() {
-    List<String> listString = redisService.getListString(RedisEnum.PLACE_CODE.getCode(), 0L, -1L);
+    BaseResult<List<String>> stringListResult = redisService.getStringList(RedisEnum.PLACE_CODE.getCode(), 0L, -1L);
+    if (stringListResult.getStatus().equals(BaseResult.STATUS_FAIL)) {
+
+    }
+    List<String> listString = stringListResult.getData();
     List<PlaceCodeResp> placeCodeRespList = new ArrayList<>();
     listString.forEach(code -> {
       String[] split = code.split(",");

@@ -1,7 +1,6 @@
 package com.zyt.charging.provider.manager;
 
 import com.zyt.charging.api.entity.enums.RedisEnum;
-import com.zyt.charging.provider.api.impl.RedisService;
 import com.zyt.charging.provider.entity.DO.ChargeInfoDO;
 import com.zyt.charging.provider.mapper.ChargeInfoMapper;
 import java.util.List;
@@ -18,13 +17,13 @@ public class ChargeInfoManager {
     @Resource
     ChargeInfoMapper chargeInfoMapper;
     @Resource
-    RedisService redisService;
+    RedisManager redisManager;
 
     @Transactional
     public int insertChargeInfo(ChargeInfoDO chargeInfoDO) {
         int i = chargeInfoMapper.insertChargeInfo(chargeInfoDO);
         if (i > 0) {
-            redisService.lPushListString(RedisEnum.PLACE_CODE.getCode(), chargeInfoDO.getPlaceCode());
+            redisManager.lPushListString(RedisEnum.PLACE_CODE.getCode(), chargeInfoDO.getPlaceCode());
         }
         return i;
     }

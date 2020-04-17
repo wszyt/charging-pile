@@ -1,0 +1,64 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body th:fragment="menu">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+             <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <li class="nav-item start active open">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-home"></i>
+                        <span class="title">控制面板</span>
+                        <span class="selected"></span>
+                        <span class="arrow open"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item start active open">
+                            <a href="index.html" class="nav-link ">
+                                <i class="icon-bar-chart"></i>
+                                <span class="title">未开发（占位）</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="heading">
+                    <h3 class="uppercase">功能菜单</h3>
+                </li>
+                <li class="nav-item  ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-user"></i>
+                        <span class="title">博客管理</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  ">
+                            <a href="/list" class="nav-link ">
+                                <span class="title">文章列表</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="/form" class="nav-link ">
+                                <span class="title">新增文章</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+        <!-- END SIDEBAR -->
+    </div>
+    <!-- END SIDEBAR -->
+
+
+
+</body>
+</html>
