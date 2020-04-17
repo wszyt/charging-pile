@@ -40,7 +40,7 @@
 
   <select id="countChargeRecord" resultType="java.lang.Integer">
     select COUNT(*) FROM
-      chaging.charge_record
+      charging.charge_record
     <where>
       <if test="startTime != null">
         and create_time > #{startTime}
@@ -49,6 +49,12 @@
         and #{endTime} > create_time
       </if>
     </where>
+  </select>
+
+  <select id="selectRecordByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select * from
+    charging.charge_record
+    where user_info_id = #{userId}
   </select>
 
 </mapper>
