@@ -1,17 +1,18 @@
 package com.zyt.charging.web.interceptor;
 
 import com.zyt.charging.api.entity.enums.UserTypeEnum;
-import com.zyt.charging.web.utlis.RedisService;
+import com.zyt.charging.api.entity.reponse.BaseResult;
+import com.zyt.charging.api.service.RedisService;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ChargingWebInterceptor implements HandlerInterceptor {
 
-    @Resource
+    @Reference(version = "${service.version}")
     RedisService redisService;
 
     @Override
@@ -23,7 +24,8 @@ public class ChargingWebInterceptor implements HandlerInterceptor {
 
         // 已登录
         if (StringUtils.hasLength(token)) {
-            String userType = redisService.getString(token);
+            BaseResult<String> strResult = redisService.getString(token);
+            String userType = strResult.getData();
             if (StringUtils.hasLength(userType)) {
                 // 请求用户页面
                 if (requestURI.startsWith("/web")) {
@@ -43,9 +45,17 @@ public class ChargingWebInterceptor implements HandlerInterceptor {
                     }
                 }
             }
+        } else {
+            // 请求用户地址
+            if (requestURI.contains("web")) {
+                response.sendRedirect("web/login");
+            }
+            // 请求管理员地址
+            else {
+                response.sendRedirect("/login");
+            }
         }
 
-        response.sendRedirect("/web/login");
         return false;
     }
 }

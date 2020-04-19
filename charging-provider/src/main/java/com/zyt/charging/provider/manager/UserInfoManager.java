@@ -1,7 +1,6 @@
 package com.zyt.charging.provider.manager;
 
-import com.zyt.charging.provider.entity.DO.ChargeInfoDO;
-import com.zyt.charging.provider.entity.DO.UserInfoDO;
+import com.zyt.charging.provider.entity.domain.UserInfoDO;
 import com.zyt.charging.provider.mapper.UserInfoMapper;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Component;

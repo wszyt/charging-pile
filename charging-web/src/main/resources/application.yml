@@ -7,17 +7,6 @@ spring:
     encoding: UTF-8
     servlet:
       content-type: text/html
-  redis:
-    lettuce:
-      pool:
-        max-active: 8
-        max-idle: 8
-        max-wait: -1ms
-        min-idle: 0
-    database: 0
-    host: 192.168.38.128
-    port: 6379
-    timeout: 10000
 server:
   port: 8080
 

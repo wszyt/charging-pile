@@ -1,4 +1,4 @@
-package com.zyt.charging.provider.entity.DO;
+package com.zyt.charging.provider.entity.domain;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.zyt.charging.provider.manager;
 
-import com.zyt.charging.provider.entity.DO.ChargeRecordDO;
+import com.zyt.charging.provider.entity.domain.ChargeRecordDO;
 import com.zyt.charging.provider.mapper.ChargeRecordMapper;
 import java.util.Date;
 import javax.annotation.Resource;

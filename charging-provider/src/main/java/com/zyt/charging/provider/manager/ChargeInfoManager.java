@@ -1,7 +1,7 @@
 package com.zyt.charging.provider.manager;
 
 import com.zyt.charging.api.entity.enums.RedisEnum;
-import com.zyt.charging.provider.entity.DO.ChargeInfoDO;
+import com.zyt.charging.provider.entity.domain.ChargeInfoDO;
 import com.zyt.charging.provider.mapper.ChargeInfoMapper;
 import java.util.List;
 import javax.annotation.Resource;

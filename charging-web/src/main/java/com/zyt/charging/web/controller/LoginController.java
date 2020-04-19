@@ -10,10 +10,10 @@ import com.zyt.charging.web.utlis.CookieUtil;
 import java.util.List;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
@@ -21,14 +21,24 @@ import java.util.UUID;
 @Controller
 public class LoginController {
 
-    @Resource
+    @Reference(version = "${service.version}")
     RedisService redisService;
 
     @Reference(version = "${service.version}")
     UserInfoService userInfoService;
 
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public String index() {
+        return "index";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(HttpServletRequest request) {
+        String isLogin = (String) request.getSession().getAttribute("token");
+        String requestURI = request.getRequestURI();
+        if (StringUtils.hasLength(isLogin)) {
+            return "redirect:/index";
+        }
         return "/login";
     }
 
@@ -38,14 +48,17 @@ public class LoginController {
         // 数据库查询是否存在该用户
         UserInfoQueryReq userInfoQueryReq = new UserInfoQueryReq();
         userInfoQueryReq.setUsername(username);
+        userInfoQueryReq.setPassword(password);
         BaseResult<List<UserInfoVO>> listBaseResult = userInfoService.selectUserInfo(userInfoQueryReq);
         UserInfoVO userInfoVO = listBaseResult.getData().get(0);
+
         // 登录成功
         if (userInfoVO.getPassword().equals(password)) {
             String token = UUID.randomUUID().toString();
             redisService.setString(token, UserTypeEnum.ADMIN.getCode(), 60 * 60 * 24L);
+            request.getSession().setAttribute("token", token);
             CookieUtil.setCookie(request, response, "token", token, 60 * 60 * 24);
-            return "redirect:";
+            return "redirect:/index";
         }
 
         return "login";
@@ -68,6 +81,7 @@ public class LoginController {
         if (userInfoVO.getPassword().equals(password)) {
             String token = UUID.randomUUID().toString();
             redisService.setString(token, UserTypeEnum.USER.getCode(), 60 * 60 * 24L);
+            request.getSession().setAttribute("token", token);
             CookieUtil.setCookie(request, response, "token", token, 60 * 60 * 24);
             return "redirect:";
         }
@@ -78,6 +92,8 @@ public class LoginController {
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request) {
         request.getSession ().invalidate ();
+        String token = CookieUtil.getCookieValue(request, "token");
+        redisService.del(token);
         return "redirect:/login";
     }
 

@@ -11,8 +11,23 @@ spring:
       max-active: 20
       test-on-borrow: true
       driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    database: 0
+    host: 192.168.38.128
+    port: 6379
+    timeout: 10000
 server:
   port: 8501
+
+mybatis:
+  type-aliases-package: com.zyt.charging.provider.entity.domain
+  mapper-locations: classpath:mapper/*.xml
 
 # MyBatis Config properties
 #mybatis:

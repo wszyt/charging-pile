@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zyt.charging.provider.mapper.ChargeInfoMapper">
-  <resultMap id="BaseResultMap" type="com.zyt.charging.provider.entity.DO.ChargeInfoDO">
+  <resultMap id="BaseResultMap" type="com.zyt.charging.provider.entity.domain.ChargeInfoDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="charge_times" jdbcType="INTEGER" property="chargeTimes" />
     <result column="price" jdbcType="INTEGER" property="price" />
@@ -15,7 +15,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
 
-  <insert id="insertChargeInfo" useGeneratedKeys="true" keyProperty="id" parameterType="com.zyt.charging.provider.entity.DO.ChargeInfoDO">
+  <insert id="insertChargeInfo" useGeneratedKeys="true" keyProperty="id" parameterType="com.zyt.charging.provider.entity.domain.ChargeInfoDO">
     INSERT INTO charging.charge_info (
     charge_times,
     price,
@@ -43,7 +43,7 @@
     )
   </insert>
 
-  <update id="updateChargeInfo" parameterType="com.zyt.charging.provider.entity.DO.ChargeInfoDO">
+  <update id="updateChargeInfo" parameterType="com.zyt.charging.provider.entity.domain.ChargeInfoDO">
     update charging.charge_info
     <set>
       <if test="chargeTimes != null">
@@ -78,7 +78,7 @@
     where id = #{id}
   </update>
 
-  <select id="selectChargeInfo" resultMap="BaseResultMap" parameterType="com.zyt.charging.provider.entity.DO.ChargeInfoDO">
+  <select id="selectChargeInfo" resultMap="BaseResultMap" parameterType="com.zyt.charging.provider.entity.domain.ChargeInfoDO">
     select * FROM
     charging.charge_info
     <where>

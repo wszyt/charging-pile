@@ -1,0 +1,169 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>我的博客 | 后台管理</title>
+    <th:block th:include="includes/head :: head"></th:block>
+
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/editormd.css" />
+
+</head>
+
+<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+
+<th:block th:include="includes/header :: header"></th:block>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <th:block th:include="includes/menu :: menu"></th:block>
+    <!-- END SIDEBAR -->
+
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <!-- BEGIN CONTENT BODY -->
+        <div class="page-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-green">
+                                <i class="icon-pin font-green"></i>
+                                <span class="caption-subject bold uppercase">编辑文章</span>
+                            </div>
+                        </div>
+                        <div th:if="${baseResult}">
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <strong th:text="${baseResult.message}"></strong>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form role="form" action="/save" th:action="@{/save}" th:method="post" th:object="${userInfoVO}">
+                                <input type="hidden" name="id" th:value="*{id}" />
+                                <div class="form-body"  style="width: 90% ;padding-left: 80px" >
+                                    <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                        <select class="form-control edited selectSubSort" id="form_control_1" th:field="*{sortId}">
+                                            <option value="1" selected>Java单体应用</option>
+                                            <option value="2">微服务部分基础</option>
+                                            <option value="3">SpringBoot + SpringCloud(Netflix)</option>
+                                            <option value="4">Dubbo + Zookeeper</option>
+                                        </select>
+                                        <label for="form_control_1">文章分类</label>
+                                    </div>
+                                    <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                        <input type="text" list="chooseSubSort"  aria-required="true" th:required="1" class="form-control" id="form_control_1" th:field="*{subSort}">
+                                        <datalist id="chooseSubSort" style="display:none;">
+                                            <div th:each="articleSubSort:${articleSubSorts}">
+                                                <option th:text="${articleSubSort.subSort}" th:value="${articleSubSort.subSort}"></option>
+                                            </div>
+                                        </datalist>
+                                        <label for="form_control_1">所属子分类</label>
+                                    </div>
+                                    <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                        <input type="text"  class="form-control" th:required="1"  id="form_control_1" th:field="*{title}">
+                                        <label for="form_control_1">文章标题</label>
+                                    </div>
+                                    <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                        <label for="form_control_1">文章内容</label>
+                                    </div>
+                                    <div class="markdown-body editormd-preview-container" id="custom-toc-container" style="">#custom-toc-container</div>
+                                    <div id="article-content">
+                                        <textarea style="display:none;" th:field="*{content}"></textarea>
+                                    </div>
+                                    <!--<div class="form-group form-md-line-input form-md-floating-label has-info">-->
+                                    <!--<input type="text" class="form-control" id="form_control_1" disabled="disabled">-->
+                                    <!--<label for="form_control_1">图片地址</label>-->
+                                    <!--</div>-->
+                                    <hr/>
+                                    <div class="form-actions noborder" >
+                                        <div style="display: inline;"><button type="button" class="btn default" onclick="history.go(-1)">Cancel</button></div>
+                                        <div style="padding-left: 63.3%; display: inline"><button type="submit" class="btn blue">提交</button></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- END EXAMPLE TABLE PORTLET-->
+                </div>
+            </div>
+        </div  >
+        <!-- END CONTENT BODY -->
+    </div>
+    <!-- END CONTENT -->
+    <!-- BEGIN QUICK SIDEBAR -->
+    <!-- END QUICK SIDEBAR -->
+</div>
+<!-- END CONTAINER -->
+
+<th:block th:include="includes/foot :: foot"></th:block>
+
+<script src="editormd.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var testEditor = editormd("article-content", {
+            width: "100%",
+            height: 700,
+            markdown : "",
+            path : 'lib/',
+            syncScrolling: "single",
+            tocContainer : "#custom-toc-container",
+            tocDropdown   : false,
+            //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为 true
+            //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为 true
+            //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为 true
+            //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为 0.1
+            //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为 #fff
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/upload",
+
+            /*
+             上传的后台只需要返回一个 JSON 数据，结构如下：
+             {
+                success : 0 | 1,           // 0 表示上传失败，1 表示上传成功
+                message : "提示的信息，上传成功或上传失败及错误信息等。",
+                url     : "图片地址"        // 上传成功时才返回
+             }
+             */
+        });
+
+        $(".selectSubSort").on().change(function () {
+            // $("#s2").onchange(function () {
+
+            // 获取s1当前选中
+            var selectValue = $(".selectSubSort").val()
+
+            //获取当前ajax请求，通过省获取市
+            $.ajax({
+                url:"/subSort?sortId=" + selectValue,
+                type:"GET",
+                async:true,
+                success:function (data) {
+                    //获取数据，解析，显示
+                    var obj = JSON.parse(data)
+
+                    var s2 = $("#chooseSubSort")
+                    //先清空s2的数据
+                    s2.html("")
+                    for (var i = 0; i < obj.length; i++) {
+                        var getSubSort = obj[i].subSort
+
+                        // var option = $("<option>" + province.text + "</option>>")
+                        var option = $("<option></option>")
+                        //为新建的option标签添加显示的内容
+                        option.text(getSubSort)
+                        //为新建的option标签添加value属性
+                        option.val(getSubSort)
+                        s2.append(option)
+                    }
+                }
+            })
+        })
+
+    });
+</script>
+</body>
+</html>

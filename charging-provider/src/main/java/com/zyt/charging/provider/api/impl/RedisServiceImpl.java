@@ -24,8 +24,21 @@ public class RedisServiceImpl implements RedisService {
   }
 
   @Override
+  public BaseResult<String> getString(String key) {
+    String value = redisManager.getString(key);
+    return BaseResult.success(value, "成功");
+  }
+
+
+  @Override
   public BaseResult<List<String>> getStringList(String key, Long start, Long end) {
     List<String> listString = redisManager.getListString(key, start, end);
     return BaseResult.success(listString);
+  }
+
+  @Override
+  public BaseResult<Void> del(String key) {
+    redisManager.del(key);
+    return BaseResult.success();
   }
 }

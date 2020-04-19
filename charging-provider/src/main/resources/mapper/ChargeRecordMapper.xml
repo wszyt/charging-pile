@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zyt.charging.provider.mapper.ChargeRecordMapper">
-  <resultMap id="BaseResultMap" type="com.zyt.charging.provider.entity.DO.ChargeRecordDO">
+  <resultMap id="BaseResultMap" type="com.zyt.charging.provider.entity.domain.ChargeRecordDO">
     <id column="id" jdbcType="BIGINT" property="id"/>
     <result column="charge_info_id" jdbcType="INTEGER" property="chargeInfoId"/>
     <result column="user_info_id" jdbcType="INTEGER" property="userInfoId"/>
@@ -14,7 +14,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
   </resultMap>
 
-  <insert id="insertChargeRecord" useGeneratedKeys="true" keyProperty="id" parameterType="com.zyt.charging.provider.entity.DO.ChargeRecordDO">
+  <insert id="insertChargeRecord" useGeneratedKeys="true" keyProperty="id" parameterType="com.zyt.charging.provider.entity.domain.ChargeRecordDO">
     INSERT INTO charging.charge_record (
     charge_info_id,
     user_info_id,

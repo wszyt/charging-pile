@@ -6,7 +6,7 @@ import com.zyt.charging.api.entity.request.ChargeInfoChangeReq;
 import com.zyt.charging.api.entity.request.ChargeInfoQueryReq;
 import com.zyt.charging.api.entity.vo.ChargeInfoVO;
 import com.zyt.charging.api.service.ChargeInfoService;
-import com.zyt.charging.provider.entity.DO.ChargeInfoDO;
+import com.zyt.charging.provider.entity.domain.ChargeInfoDO;
 import com.zyt.charging.provider.manager.ChargeInfoManager;
 import com.zyt.charging.provider.manager.RedisManager;
 import java.util.ArrayList;

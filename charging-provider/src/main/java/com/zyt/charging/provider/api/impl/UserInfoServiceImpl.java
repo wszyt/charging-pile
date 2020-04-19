@@ -5,7 +5,7 @@ import com.zyt.charging.api.entity.request.UserInfoChangeReq;
 import com.zyt.charging.api.entity.request.UserInfoQueryReq;
 import com.zyt.charging.api.entity.vo.UserInfoVO;
 import com.zyt.charging.api.service.UserInfoService;
-import com.zyt.charging.provider.entity.DO.UserInfoDO;
+import com.zyt.charging.provider.entity.domain.UserInfoDO;
 import com.zyt.charging.provider.manager.UserInfoManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +62,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public BaseResult<List<UserInfoVO>> selectUserInfo(UserInfoQueryReq request) {
         UserInfoDO userInfoDO = new UserInfoDO();
-        userInfoDO.setPhone(request.getPhone());
-        userInfoDO.setName(request.getName());
-        userInfoDO.setEmail(request.getEmail());
+        BeanUtils.copyProperties(request, userInfoDO);
         List<UserInfoDO> userInfoDOS = userInfoManager.selectUserInfo(userInfoDO);
         List<UserInfoVO> userInfoVOS = new ArrayList<>();
         userInfoDOS.forEach(userInfo -> {

@@ -1,7 +1,6 @@
 package com.zyt.charging.provider.mapper;
 
-import com.zyt.charging.provider.entity.DO.ChargeInfoDO;
-import com.zyt.charging.provider.entity.DO.UserInfoDO;
+import com.zyt.charging.provider.entity.domain.UserInfoDO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
