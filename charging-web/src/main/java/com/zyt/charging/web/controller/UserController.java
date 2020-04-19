@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/modifyUserInfo", method = RequestMethod.POST)
-    public String modifyUserInfo(@RequestBody UserInfoVO userInfoVO, Model model) {
+    public String modifyUserInfo(UserInfoVO userInfoVO, Model model) {
         // 存在Id时修改
         if (userInfoVO.getId() != null) {
             UserInfoQueryReq chargeInfoQueryReq = new UserInfoQueryReq();
@@ -84,12 +84,18 @@ public class UserController {
             chargeInfoChangeReq.setUserInfoVO(userInfoVO);
             BaseResult<Void> updateResult = userInfoService.updateUserInfo(chargeInfoChangeReq);
             model.addAttribute("baseResult", updateResult);
+            if (updateResult.getStatus().equals(BaseResult.STATUS_FAIL)) {
+                return "editorUserInfo";
+            }
             return "redirect:/selectAllUserInfoList";
         } else {
             UserInfoChangeReq chargeInfoChangeReq = new UserInfoChangeReq();
             chargeInfoChangeReq.setUserInfoVO(userInfoVO);
             BaseResult<Void> insertResult = userInfoService.insertUserInfo(chargeInfoChangeReq);
             model.addAttribute("baseResult", insertResult);
+            if (insertResult.getStatus().equals(BaseResult.STATUS_FAIL)) {
+                return "editorUserInfo";
+            }
             return "redirect:/selectAllUserInfoList";
         }
     }

@@ -31,7 +31,7 @@
                         <div class="portlet-title">
                             <div class="caption font-green">
                                 <i class="icon-pin font-green"></i>
-                                <span class="caption-subject bold uppercase">编辑文章</span>
+                                <span class="caption-subject bold uppercase">编辑用户信息</span>
                             </div>
                         </div>
                         <div th:if="${baseResult}">
@@ -41,38 +41,54 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form role="form" action="/save" th:action="@{/save}" th:method="post" th:object="${userInfoVO}">
+                            <form role="form" action="/modifyUserInfo" th:action="@{/modifyUserInfo}" th:method="post" th:object="${userInfoVO}">
                                 <input type="hidden" name="id" th:value="*{id}" />
                                 <div class="form-body"  style="width: 90% ;padding-left: 80px" >
                                     <div class="form-group form-md-line-input form-md-floating-label has-info">
-                                        <select class="form-control edited selectSubSort" id="form_control_1" th:field="*{sortId}">
-                                            <option value="1" selected>Java单体应用</option>
-                                            <option value="2">微服务部分基础</option>
-                                            <option value="3">SpringBoot + SpringCloud(Netflix)</option>
-                                            <option value="4">Dubbo + Zookeeper</option>
-                                        </select>
-                                        <label for="form_control_1">文章分类</label>
+                                        <input type="text"  class="form-control" th:required="1"  id="form_control_1" th:field="*{username}">
+                                        <label for="form_control_1">账号</label>
                                     </div>
                                     <div class="form-group form-md-line-input form-md-floating-label has-info">
-                                        <input type="text" list="chooseSubSort"  aria-required="true" th:required="1" class="form-control" id="form_control_1" th:field="*{subSort}">
-                                        <datalist id="chooseSubSort" style="display:none;">
-                                            <div th:each="articleSubSort:${articleSubSorts}">
-                                                <option th:text="${articleSubSort.subSort}" th:value="${articleSubSort.subSort}"></option>
-                                            </div>
-                                        </datalist>
-                                        <label for="form_control_1">所属子分类</label>
+                                        <input type="text"  class="form-control" th:required="1"  id="form_control_1" th:field="*{password}">
+                                        <label for="form_control_1">密码</label>
                                     </div>
                                     <div class="form-group form-md-line-input form-md-floating-label has-info">
-                                        <input type="text"  class="form-control" th:required="1"  id="form_control_1" th:field="*{title}">
-                                        <label for="form_control_1">文章标题</label>
+                                        <input type="text"  class="form-control" th:required="1"  id="form_control_1" th:field="*{name}">
+                                        <label for="form_control_1">用户名</label>
                                     </div>
-                                    <div class="form-group form-md-line-input form-md-floating-label has-info">
-                                        <label for="form_control_1">文章内容</label>
+                                    <div class="form-group">
+                                        <label>Inline Radio</label>
+                                        <div class="mt-radio-inline">
+                                            <label class="mt-radio">
+                                                <input type="radio" name="sex" id="optionsRadios4" value="1" checked> 男
+                                                <span></span>
+                                            </label>
+                                            <label class="mt-radio">
+                                                <input type="radio" name="sex" id="optionsRadios5" value="2"> 女
+                                                <span></span>
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="markdown-body editormd-preview-container" id="custom-toc-container" style="">#custom-toc-container</div>
-                                    <div id="article-content">
-                                        <textarea style="display:none;" th:field="*{content}"></textarea>
-                                    </div>
+<!--                                    <div class="form-group form-md-line-input form-md-floating-label has-info">-->
+<!--                                        <input type="text" list="chooseSubSort"  aria-required="true" th:required="1" class="form-control" id="form_control_1" th:field="*{subSort}">-->
+<!--                                        <datalist id="chooseSubSort" style="display:none;">-->
+<!--                                            <div th:each="articleSubSort:${articleSubSorts}">-->
+<!--                                                <option th:text="${articleSubSort.subSort}" th:value="${articleSubSort.subSort}"></option>-->
+<!--                                            </div>-->
+<!--                                        </datalist>-->
+<!--                                        <label for="form_control_1">所属子分类</label>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group form-md-line-input form-md-floating-label has-info">-->
+<!--                                        <input type="text"  class="form-control" th:required="1"  id="form_control_1" th:field="*{title}">-->
+<!--                                        <label for="form_control_1">文章标题</label>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group form-md-line-input form-md-floating-label has-info">-->
+<!--                                        <label for="form_control_1">文章内容</label>-->
+<!--                                    </div>-->
+<!--                                    <div class="markdown-body editormd-preview-container" id="custom-toc-container" style="">#custom-toc-container</div>-->
+<!--                                    <div id="article-content">-->
+<!--                                        <textarea style="display:none;" th:field="*{content}"></textarea>-->
+<!--                                    </div>-->
                                     <!--<div class="form-group form-md-line-input form-md-floating-label has-info">-->
                                     <!--<input type="text" class="form-control" id="form_control_1" disabled="disabled">-->
                                     <!--<label for="form_control_1">图片地址</label>-->
