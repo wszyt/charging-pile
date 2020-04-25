@@ -2,6 +2,8 @@ package com.zyt.charging.web.controller;
 
 import com.zyt.charging.api.entity.enums.RedisEnum;
 import com.zyt.charging.api.entity.reponse.BaseResult;
+import com.zyt.charging.api.entity.request.UserInfoQueryReq;
+import com.zyt.charging.api.entity.vo.UserInfoVO;
 import com.zyt.charging.api.service.RedisService;
 import com.zyt.charging.web.resp.PlaceCodeResp;
 import com.zyt.charging.api.entity.request.ChargeInfoChangeReq;
@@ -15,6 +17,8 @@ import java.util.List;
 
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +31,22 @@ public class ChargeController {
     @Reference(version = "${service.version}")
     RedisService redisService;
 
+    @ModelAttribute
+    public ChargeInfoVO getChargeInfoVO(Long id) {
+        ChargeInfoVO chargeInfoVO = null;
+
+        ChargeInfoQueryReq req = new ChargeInfoQueryReq();
+        //id不为空，则从数据库获取
+        if (id != null) {
+            req.setId(id);
+            BaseResult<ChargeInfoVO> chargeInfoResult = chargeInfoService.selectChargeInfoById(req);
+            chargeInfoVO = chargeInfoResult.getData();
+        } else {
+            chargeInfoVO = new ChargeInfoVO();
+        }
+        return chargeInfoVO;
+    }
+
     @RequestMapping(value = "/selectChargeInfo", method = RequestMethod.POST)
     public BaseResult<ChargeInfoVO> selectChargeInfoById(ChargeInfoQueryReq request) {
         return chargeInfoService.selectChargeInfoById(request);
@@ -37,32 +57,51 @@ public class ChargeController {
         return chargeInfoService.selectChargeInfo(request);
     }
 
-    @RequestMapping(value = "/modifyChargeInfo", method = RequestMethod.POST)
-    public BaseResult<Void> modifyChargeInfo(@RequestBody ChargeInfoChangeReq request) {
-        if (request == null || request.getChargeInfoVO() == null) {
-            return BaseResult.fail("参数不能为空");
-        }
+    @RequestMapping(value = "/selectAllChargeInfoList", method = RequestMethod.GET)
+    public String selectAllChargeInfoList(Model model) {
+        BaseResult<List<ChargeInfoVO>> listBaseResult = chargeInfoService.selectChargeInfo(new ChargeInfoQueryReq());
+        model.addAttribute("baseResult", listBaseResult);
+        return "chargeInfoList";
+    }
 
-        ChargeInfoVO chargeInfoVO = request.getChargeInfoVO();
+    @RequestMapping(value = "/modifyChargeInfoPage", method = RequestMethod.GET)
+    public String modifyChargeInfoPage() {
+        return "editorChargeInfo";
+    }
+
+    @RequestMapping(value = "/modifyChargeInfo", method = RequestMethod.POST)
+    public String modifyChargeInfo(ChargeInfoVO chargeInfoVO, Model model) {
         // 存在Id时修改
         if (chargeInfoVO.getId() != null) {
             ChargeInfoQueryReq chargeInfoQueryReq = new ChargeInfoQueryReq();
             chargeInfoQueryReq.setId(chargeInfoVO.getId());
             BaseResult<ChargeInfoVO> chargeInfoVOBaseResult = chargeInfoService.selectChargeInfoById(chargeInfoQueryReq);
             if (BaseResult.STATUS_FAIL.equals(chargeInfoVOBaseResult.getStatus())) {
-                return BaseResult.fail(chargeInfoVOBaseResult.getMessage());
+                model.addAttribute("baseResult", chargeInfoVOBaseResult);
+                return "editorChargeInfo";
             }
 
             if (chargeInfoVOBaseResult.getData() == null) {
-                return BaseResult.fail("该Id没有对应充电桩信息");
+                model.addAttribute("baseResult", BaseResult.fail("该Id没有对应充电桩信息"));
+                return "editorChargeInfo";
             }
             ChargeInfoChangeReq chargeInfoChangeReq = new ChargeInfoChangeReq();
-            chargeInfoChangeReq.setChargeInfoVO(request.getChargeInfoVO());
-            return chargeInfoService.updateChargeInfo(chargeInfoChangeReq);
+            chargeInfoChangeReq.setChargeInfoVO(chargeInfoVO);
+            BaseResult<Void> baseResult = chargeInfoService.updateChargeInfo(chargeInfoChangeReq);
+            model.addAttribute("baseResult", baseResult);
+            if (baseResult.getStatus().equals(BaseResult.STATUS_FAIL)) {
+                return "editorChargeInfo";
+            }
+            return "redirect:/selectAllChargeInfoList";
         } else {
             ChargeInfoChangeReq chargeInfoChangeReq = new ChargeInfoChangeReq();
-            chargeInfoChangeReq.setChargeInfoVO(request.getChargeInfoVO());
-            return chargeInfoService.insertChargeInfo(chargeInfoChangeReq);
+            chargeInfoChangeReq.setChargeInfoVO(chargeInfoVO);
+            BaseResult<Void> baseResult = chargeInfoService.insertChargeInfo(chargeInfoChangeReq);
+            model.addAttribute("baseResult", baseResult);
+            if (baseResult.getStatus().equals(BaseResult.STATUS_FAIL)) {
+                return "editorChargeInfo";
+            }
+            return "redirect:/selectAllChargeInfoList";
         }
     }
 

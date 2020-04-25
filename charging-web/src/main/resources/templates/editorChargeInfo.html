@@ -40,76 +40,23 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form role="form" action="/modifyUserInfo" th:action="@{/modifyUserInfo}" th:method="post"
-                                  th:object="${userInfoVO}">
+                            <form role="form" action="/modifyUserInfo" th:action="@{/modifyChargeInfo}" th:method="post"
+                                  th:object="${chargeInfoVO}">
                                 <input type="hidden" name="id" th:value="*{id}"/>
                                 <div class="form-body" style="width: 90% ;padding-left: 80px">
                                     <div class="form-group form-md-line-input form-md-floating-label has-info">
-                                        <div th:if="${userInfoVO.getId()} != null">
+                                        <div th:if="${chargeInfoVO.getId()} != null">
                                             <input type="text" class="form-control" th:required="1" id="form_control_1"
-                                                   th:field="*{username}" readonly>
+                                                   th:field="*{code}" readonly>
                                             <label for="form_control_1">账号</label>
                                         </div>
-                                        <div th:if="${userInfoVO.getId()} == null">
+                                        <div th:if="${chargeInfoVO.getId()} == null">
                                             <input type="text" class="form-control" th:required="1" id="form_control_1"
-                                                   th:field="*{username}">
+                                                   th:field="*{code}">
                                             <label for="form_control_1">账号</label>
                                         </div>
                                     </div>
-                                    <div class="form-group form-md-line-input form-md-floating-label has-info">
-                                        <input type="text" class="form-control" th:required="1" id="form_control_1"
-                                               th:field="*{password}">
-                                        <label for="form_control_1">密码</label>
-                                    </div>
-                                    <div class="form-group form-md-line-input form-md-floating-label has-info">
-                                        <input type="text" class="form-control" th:required="1" id="form_control_1"
-                                               th:field="*{name}">
-                                        <label for="form_control_1">用户名</label>
-                                    </div>
-                                    <div class="form-group form-md-line-input form-md-floating-label has-info">
-                                        <input type="text" class="form-control" th:required="1" id="form_control_1"
-                                               th:field="*{phone}">
-                                        <label for="form_control_1">手机号</label>
-                                    </div>
-                                    <div class="form-group form-md-line-input form-md-floating-label has-info">
-                                        <input type="text" class="form-control" th:required="1" id="form_control_1"
-                                               th:field="*{email}">
-                                        <label for="form_control_1">邮箱</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="mt-radio-inline">
-                                            <label>性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
-                                                    th:if="*{sex == 0}">男</label><label
-                                                    th:if="*{sex == 1}">女</label></label>
-                                                <label class="mt-radio" th:if="${userInfoVO.getId()} == null">
-                                                    <input type="radio" name="sex" id="optionsRadios4" th:value="0"
-                                                           th:fiedl="*{sex}"> 男
-                                                    <span></span>
-                                                </label>
-                                                <label class="mt-radio" th:if="${userInfoVO.getId()} == null">
-                                                    <input type="radio" name="sex" id="optionsRadios5" th:value="1"
-                                                           th:fiedl="*{sex}"> 女
-                                                    <span></span>
-                                                </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="mt-radio-inline" >
-                                            <label>用户类型:&nbsp;&nbsp;&nbsp;<label
-                                                    th:if="*{userType == 0}">用户</label><label
-                                                    th:if="*{userType == 1}">管理员</label></label>
-                                                <label class="mt-radio" th:if="${userInfoVO.getId()} == null">
-                                                    <input type="radio" name="sex" id="optionsRadios4" th:value="0"
-                                                           th:field="*{userType}"> 用户
-                                                    <span></span>
-                                                </label>
-                                                <label class="mt-radio" th:if="${userInfoVO.getId()} == null">
-                                                    <input type="radio" name="sex" id="optionsRadios5" th:value="1"
-                                                           th:fiedl="*{userType}"> 管理员
-                                                    <span></span>
-                                                </label>
-                                        </div>
-                                    </div>
+
                                     <!--                                    <div class="form-group form-md-line-input form-md-floating-label has-info">-->
                                     <!--                                        <input type="text" list="chooseSubSort"  aria-required="true" th:required="1" class="form-control" id="form_control_1" th:field="*{subSort}">-->
                                     <!--                                        <datalist id="chooseSubSort" style="display:none;">-->
