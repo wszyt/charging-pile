@@ -29,6 +29,8 @@ public class ChargeInfoDO {
     private String placeCode;
     // 充电桩类型
     private String type;
+    // 充电桩品牌
+    private String brands;
     private Date createTime;
     private Date updateTime;
 }

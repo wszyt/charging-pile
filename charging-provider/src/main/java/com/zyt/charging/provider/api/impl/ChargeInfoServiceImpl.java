@@ -1,5 +1,6 @@
 package com.zyt.charging.provider.api.impl;
 
+import com.zyt.charging.api.entity.enums.ChargeTypeEnum;
 import com.zyt.charging.api.entity.enums.RedisEnum;
 import com.zyt.charging.api.entity.reponse.BaseResult;
 import com.zyt.charging.api.entity.request.ChargeInfoChangeReq;
@@ -114,7 +115,7 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
         List<ChargeInfoDO> chargeInfoDOS = chargeInfoManager.selectChargeInfo(chargeInfoDO);
         redisManager.del(RedisEnum.PLACE_CODE.getCode());
         chargeInfoDOS.forEach(chargeInfo -> {
-            redisManager.lPushListString(RedisEnum.PLACE_CODE.getCode(), chargeInfo.getPlaceCode());
+            redisManager.lPushListString(RedisEnum.PLACE_CODE.getCode(), chargeInfo.getPlaceCode() + "," + chargeInfo.getBrands() + "," + chargeInfo.getType() + "," + ChargeTypeEnum.getByCode(chargeInfo.getStatus()));
         });
         return BaseResult.success();
     }

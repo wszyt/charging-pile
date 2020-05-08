@@ -15,13 +15,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zyt.charging.web.utlis.JsonUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ChargeController {
@@ -105,12 +103,10 @@ public class ChargeController {
         }
     }
 
-    @RequestMapping(value = "/getPlaceCode")
-    public String getChargingPilePlaceCode() {
+    @ResponseBody
+    @RequestMapping(value = "/getPlaceCode", method = RequestMethod.GET)
+    public String getChargingPilePlaceCode() throws Exception {
         BaseResult<List<String>> stringListResult = redisService.getStringList(RedisEnum.PLACE_CODE.getCode(), 0L, -1L);
-        if (stringListResult.getStatus().equals(BaseResult.STATUS_FAIL)) {
-
-        }
         List<String> listString = stringListResult.getData();
         List<PlaceCodeResp> placeCodeRespList = new ArrayList<>();
         listString.forEach(code -> {
@@ -118,14 +114,18 @@ public class ChargeController {
             PlaceCodeResp placeCodeResp = new PlaceCodeResp();
             placeCodeResp.setXCoordinate(new BigDecimal(split[0]));
             placeCodeResp.setYCoordinate(new BigDecimal(split[1]));
+            placeCodeResp.setBrands(split[2]);
+            placeCodeResp.setType(split[3]);
+            placeCodeResp.setStatus(split[4]);
             placeCodeRespList.add(placeCodeResp);
         });
-        return null;
+        return JsonUtils.obj2json(placeCodeRespList);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/flashPlaceCode")
-    public String flashPlaceCode() {
+    public BaseResult<Void> flashPlaceCode() {
         BaseResult<Void> baseResult = chargeInfoService.flashPlaceCode();
-        return null;
+        return BaseResult.success();
     }
 }

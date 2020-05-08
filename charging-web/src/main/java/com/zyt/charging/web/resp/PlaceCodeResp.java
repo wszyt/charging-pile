@@ -10,6 +10,9 @@ import lombok.Data;
  */
 @Data
 public class PlaceCodeResp implements Serializable {
-  private BigDecimal 	xCoordinate;
-  private BigDecimal 	yCoordinate;
+  private BigDecimal xCoordinate;
+  private BigDecimal yCoordinate;
+  private String status;
+  private String brands;
+  private String type;
 }
