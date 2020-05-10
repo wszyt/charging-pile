@@ -33,17 +33,53 @@
                         <div class="portlet-title">
                             <div class="caption font-dark">
                                 <i class="icon-settings font-dark"></i>
-                                <span class="caption-subject bold uppercase">充电桩管理</span>
+                                <span class="caption-subject bold uppercase">用户充电记录查询</span>
                             </div>
                             <div class="tools"> </div>
                         </div>
-                        <div th:if="${baseResult}">
-                            <div class="alert alert-info alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                                <strong th:text="${baseResult.message}"></strong>
-                            </div>
+                        <div>
+                            <form role="form" action="/modifyUserInfo" th:action="@{/selectUserDetailListByCondition}" th:method="post">
+                                <div class="col-md-2">
+                                    <div class="form-group form-md-line-input has-info">
+                                        <input type="text" class="form-control" id="form_control_1" placeholder="账号" name="username">
+                                        <div class="form-control-focus"> </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-md-line-input has-info">
+                                        <input type="text" class="form-control" id="form_control_1" placeholder="用户名" name="name">
+                                        <div class="form-control-focus"> </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-md-line-input has-info">
+                                        <input type="text" class="form-control" id="form_control_1" placeholder="手机号" name="phone">
+                                        <div class="form-control-focus"> </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-md-line-input has-info">
+                                        <input type="text" class="form-control" id="form_control_1" placeholder="邮箱" name="email">
+                                        <div class="form-control-focus"> </div>
+                                    </div>
+                                </div>
+                                <div class="md-checkbox has-info col-md-1">
+                                    <input type="checkbox" id="checkbox35" class="md-check" name="isChecked">
+                                    <label for="checkbox35">
+                                        <span class="inc"></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> 过滤管理员 </label>
+                                </div>
+<!--                                <div class="col-md-2">-->
+<!--                                    <div class="form-group form-md-line-input has-info">-->
+<!--                                        <input type="text" class="form-control" id="form_control_1" placeholder="用户类型">-->
+<!--                                        <div class="form-control-focus"> </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <button type="submit" class="btn blue-madison">搜索</button>
+                            </form>
+
                         </div>
-                        <div><a href="/modifyUserInfoPage" class="btn btn-circle blue btn-block btn-outline ">新增用户</a></div>
                         <hr/>
                         <table class="table table-striped table-bordered table-hover" id="sample_2">
                             <thead>
@@ -51,10 +87,8 @@
                                 <th th:hidden="true"> id </th>
                                 <th style="align-content: center"> 账号 </th>
                                 <th> 用户名 </th>
-                                <th> 性别 </th>
-                                <th> 邮件 </th>
                                 <th> 手机号 </th>
-                                <th> 用户类型 </th>
+                                <th> 邮箱 </th>
                                 <th style="width: 18%"> 操作 </th>
                             </tr>
                             </thead>
@@ -71,19 +105,10 @@
                                 <td th:text="${userInfo.getId()}" th:hidden="true">  </td>
                                 <td th:text="${userInfo.getUsername()}">  </td>
                                 <td th:text="${userInfo.getName()}">  </td>
-                                <div th:switch="${userInfo.getSex()}">
-                                    <td th:case="0">男</td>
-                                    <td th:case="1">女</td>
-                                </div >
-                                <td th:text="${userInfo.getEmail()}">  </td>
                                 <td th:text="${userInfo.getPhone()}">  </td>
-                                <div th:switch="${userInfo.getUserType()}">
-                                    <td th:case="0">用户</td>
-                                    <td th:case="1">管理员</td>
-                                </div >
+                                <td th:text="${userInfo.getEmail()}">  </td>
                                 <td>
-                                    <a th:href="@{/modifyUserInfoPage(id=${userInfo.getId()})}" class="btn blue btn-circle btn-xs" style="height: 23px;width: 50px">编辑</a>
-                                    <a th:href="@{/delete(id=${userInfo.getId()})}" class="btn red btn-circle btn-xs" data-toggle="confirmation" data-popout="true" data-original-title="" title="确认删除" style="height: 23px;width: 50px">删除</a>
+                                    <a th:href="@{/userDetail(id=${userInfo.getId()})}" class="btn blue btn-circle btn-xs" style="height: 23px;width: 90px">查看详情</a>
                                 </td>
                             </tr>
 

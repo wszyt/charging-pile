@@ -27,7 +27,6 @@ public enum ChargeTypeEnum {
             if (value.getCode().equals(code)) {
                 return value.getDesc();
             }
-            return "状态未知";
         }
         return "状态未知";
     }

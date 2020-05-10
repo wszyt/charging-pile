@@ -27,7 +27,7 @@ public class LoginController {
     @Reference(version = "${service.version}")
     UserInfoService userInfoService;
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "index";
     }

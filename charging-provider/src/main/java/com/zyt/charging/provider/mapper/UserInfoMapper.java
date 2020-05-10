@@ -1,5 +1,6 @@
 package com.zyt.charging.provider.mapper;
 
+import com.zyt.charging.provider.entity.domain.CountCondition;
 import com.zyt.charging.provider.entity.domain.UserInfoDO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,6 +15,7 @@ public interface UserInfoMapper {
 
     /**
      * 更新
+     *
      * @param userInfoDO
      * @return
      */
@@ -21,6 +23,7 @@ public interface UserInfoMapper {
 
     /**
      * 插入用户信息
+     *
      * @param userInfoDO
      * @return
      */
@@ -28,6 +31,7 @@ public interface UserInfoMapper {
 
     /**
      * 根据条件查询用户信息
+     *
      * @param userInfoDO
      * @return
      */
@@ -35,8 +39,11 @@ public interface UserInfoMapper {
 
     /**
      * 根据Id查询UserInfoDO
+     *
      * @param id
      * @return
      */
     UserInfoDO selectUserInfoById(Long id);
+
+    Integer countUserInfo(CountCondition countCondition);
 }

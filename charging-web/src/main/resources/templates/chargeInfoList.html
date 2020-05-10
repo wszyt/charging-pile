@@ -50,6 +50,7 @@
                             <tr>
                                 <th th:hidden="true"> id </th>
                                 <th style="align-content: center"> 充电桩编号 </th>
+                                <th> 充电桩品牌 </th>
                                 <th> 充电桩型号 </th>
                                 <th> 所在城市 </th>
                                 <th> 价格 </th>
@@ -71,6 +72,7 @@
                             <tr th:each="chargeInfo:${baseResult.getData()}">
                                 <td th:text="${chargeInfo.getId()}" th:hidden="true">  </td>
                                 <td th:text="${chargeInfo.getCode()}">  </td>
+                                <td th:text="${chargeInfo.getBrands()}">  </td>
                                 <td th:text="${chargeInfo.getType()}">  </td>
                                 <td th:text="${chargeInfo.getCity()}">  </td>
                                 <td th:text="${chargeInfo.getPrice() + '元'}"> </td>
@@ -82,10 +84,10 @@
                                 </div >
                                 <td th:text="${chargeInfo.getPower()} + '千瓦时'"> </td>
                                 <div th:switch="${chargeInfo.getStatus()}">
-                                    <td th:case="0">无法使用</td>
-                                    <td th:case="1">可以使用</td>
-                                    <td th:case="2">使用中</td>
-                                    <td th:case="3">待维修</td>
+                                    <td th:case="0">可以使用</td>
+                                    <td th:case="1">使用中</td>
+                                    <td th:case="2">无法使用</td>
+                                    <td th:case="4">待维修</td>
                                 </div >
                                 <td>
                                     <a th:href="@{/modifyChargeInfoPage(id=${chargeInfo.getId()})}" class="btn blue btn-circle btn-xs" style="height: 23px;width: 50px">编辑</a>

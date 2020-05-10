@@ -1,8 +1,10 @@
 package com.zyt.charging.provider.mapper;
 
 import com.zyt.charging.provider.entity.domain.ChargeRecordDO;
+
 import java.util.Date;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,6 +17,7 @@ public interface ChargeRecordMapper {
 
   /**
    * 根据条件获取记录条数
+   *
    * @param startTime
    * @param endTime
    * @return
@@ -23,6 +26,7 @@ public interface ChargeRecordMapper {
 
   /**
    * 插入充电记录
+   *
    * @param chargeRecordDO
    * @return
    */
@@ -30,8 +34,13 @@ public interface ChargeRecordMapper {
 
   /**
    * 根据用户id查询用户充电记录
+   *
    * @param userId
    * @return
    */
-  List<ChargeRecordDO> selectRecordByUserId(@Param("userId") Integer userId);
+  List<ChargeRecordDO> selectRecordByUserId(@Param("userId") Long userId);
+
+  List<ChargeRecordDO> selectRecordByChargeInfoId(@Param("chargeInfoId") Long chargeInfoId);
+
+  Integer countChargeRecordByUser(@Param("chargeInfoId") Long chargeInfoId);
 }

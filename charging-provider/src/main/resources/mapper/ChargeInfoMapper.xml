@@ -3,6 +3,7 @@
 <mapper namespace="com.zyt.charging.provider.mapper.ChargeInfoMapper">
   <resultMap id="BaseResultMap" type="com.zyt.charging.provider.entity.domain.ChargeInfoDO">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="brands_id" jdbcType="BIGINT" property="brandsId" />
     <result column="charge_times" jdbcType="INTEGER" property="chargeTimes" />
     <result column="price" jdbcType="INTEGER" property="price" />
     <result column="power" jdbcType="INTEGER" property="power" />
@@ -12,6 +13,7 @@
     <result column="place_code" jdbcType="VARCHAR" property="placeCode" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="brands" jdbcType="VARCHAR" property="brands" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -19,6 +21,7 @@
   <insert id="insertChargeInfo" useGeneratedKeys="true" keyProperty="id" parameterType="com.zyt.charging.provider.entity.domain.ChargeInfoDO">
     INSERT INTO charging.charge_info (
     charge_times,
+    brands_id,
     price,
     power,
     price_type,
@@ -28,20 +31,23 @@
     place_code,
     `type`,
     brands,
+    pic_url,
     create_time,
     update_time
     )
     VALUES (
-    #{chargeTimes},
+    0,
+    #{brandsId},
     #{price},
     #{power},
     #{priceType},
-    #{status},
+    0,
     #{code},
     #{city},
     #{placeCode},
     #{type},
     #{brands},
+    #{picUrl},
     now(), now()
     )
   </insert>
@@ -74,10 +80,13 @@
         place_code = #{placeCode},
       </if>
       <if test="type != null">
-        type = #{type},
+        `type` = #{type},
       </if>
       <if test="brands != null">
-        type = #{brands},
+        brands = #{brands},
+      </if>
+      <if test="picUrl != null">
+        pic_url = #{picUrl},
       </if>
         update_time = now()
     </set>
@@ -110,6 +119,25 @@
     select * from
     charging.charge_info
     where code = #{code}
+  </select>
+
+  <select id="countChargeInfo" resultType="java.lang.Integer" parameterType="com.zyt.charging.provider.entity.domain.CountCondition">
+    select COUNT(*) FROM
+    charging.charge_info
+    <where>
+      <if test="startTime != null">
+        and create_time > #{startTime}
+      </if>
+      <if test="endTime != null">
+        and #{endTime} > create_time
+      </if>
+      <if test="brands != null">
+        and brands = #{brands}
+      </if>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+    </where>
   </select>
 
 </mapper>

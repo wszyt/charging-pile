@@ -3,6 +3,7 @@ package com.zyt.charging.web.controller;
 import com.zyt.charging.api.entity.reponse.BaseResult;
 import com.zyt.charging.api.entity.request.ChargeRecordChangeReq;
 import com.zyt.charging.api.entity.request.ChargeRecordCountReq;
+import com.zyt.charging.api.service.ChargeInfoService;
 import com.zyt.charging.api.service.ChargeRecordService;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,16 @@ public class ChargeRecordController {
     }
 
     BaseResult<Integer> baseResult = chargeRecordService.insertChargeRecord(request);
+    return null;
+  }
+
+  @RequestMapping(value = "startCharge")
+  public String startCharge() {
+    return null;
+  }
+
+  @RequestMapping(value = "startCharge")
+  public String endCharge() {
     return null;
   }
 }

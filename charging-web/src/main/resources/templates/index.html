@@ -72,7 +72,7 @@
         ]}));
     map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-
+    var searchInfoWindow = null;
 
     // 获取充电桩坐标
     $.ajax({
@@ -88,26 +88,31 @@
                 var marker = new BMap.Marker(point); //创建marker对象
 
                 var content = '<div style="margin:0;line-height:20px;padding:2px;">' +
-                    '<img src="https://www.baidu.com/link?url=XSOUN1rv8xmPZoq3wclAPNMHX0nqb4mxxnIKL5oxA5ShpQgAtyQnqjD3XLMAdxmDLF0SLul-zjhSnjO1awDOBChve9cS10VxH-mGXvVzy65dLu59plkBvWGaDstG4P3wmql2G5vrn5TabQsB4zNC4_r-YeQS82dFpLFOJUWwYQ63PpVvpuJRWBZHFS2Kw6YZ5R2k89CwRUFMu4sv9jKTvGtVwkWjpZ6wBAFzp8TL41hhrpAnVpQV-EVSqB6x-aZsrjuz7IStk0M6eY1vi6P9Pb1lTDKZUsrXeSv2SSDJ3eTb2BcsD7cDxXmYoxIQ_-GBSL2c12R9T1B2gTEaQHhDd-JAtbzZjzLgc1MX1NTeLWvDtGffv9D-RJT9LwA1BnVDiFOr6RgI8Q_8_FRBt_18uD065PB3DEOhnvSKuUi_Iy3bGq27Ikdp2HT5YVlbkjNe5aOdLXczGgeNCL1pdLm_SrdRUXfxQXmEkoxk898FgPTfzxYvPD2iZRjpJ214iz6RkII2t8GgidlhC-xS_fOKthpPuxWVNL61o82wdIrg457gRzwPL8_TXi7YCgqZQn6Nj_o4HgVxwOljZAVJkE_LnqUDELLPQ9wy4c-All_FYUG&timg=&click_t=1588949138932&s_info=1903_969&wd=&eqid=c82d534700089922000000045eb56c73" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>' +
-                    '充电桩是否使用：' + yCode + '<br/>充电桩型号：(010)59928888' +
+                    '<img src=" ' + obj[i].pic + '"  alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>' +
+                    '充电桩是否使用：' + obj[i].status + '<br/>充电桩品牌：' + obj[i].brands + '<br/>充电桩型号：' + obj[i].type
+                    + '<br/><a href="/chargeDetail?id= '+ obj[i].id +' "> 查看充电桩详情</a>'
                     '</div>';
-                searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
-                    title  : "充电桩信息",      //标题
-                    width  : 290,             //宽度
-                    height : 105,              //高度
-                    panel  : "panel",         //检索结果面板
-                    enableAutoPan : true,     //自动平移
-                    searchTypes   :[
-                        BMAPLIB_TAB_SEARCH,   //周边检索
-                        BMAPLIB_TAB_TO_HERE,  //到这里去
-                        BMAPLIB_TAB_FROM_HERE //从这里出发
-                    ]
-                });
 
-                marker.addEventListener("click", function(e){
+               addClickHandler(content, marker)
+                map.addOverlay(marker); //在地图中添加marker
+            }
+
+            function addClickHandler(content,marker){
+                marker.addEventListener("click",function(e){
+                    searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+                        title  : "充电桩信息",      //标题
+                        width  : 290,             //宽度
+                        height : 105,              //高度
+                        panel  : "panel",         //检索结果面板
+                        enableAutoPan : true,     //自动平移
+                        searchTypes   :[
+                            BMAPLIB_TAB_SEARCH,   //周边检索
+                            BMAPLIB_TAB_TO_HERE,  //到这里去
+                            BMAPLIB_TAB_FROM_HERE //从这里出发
+                        ]
+                    });
                     searchInfoWindow.open(marker);
                 });
-                map.addOverlay(marker); //在地图中添加marker
             }
         }
     });

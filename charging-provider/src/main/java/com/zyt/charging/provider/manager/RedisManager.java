@@ -55,7 +55,7 @@ public class RedisManager {
      * @return
      */
     public List<String> getListString(String key, Long start, Long end) {
-        return stringRedisTemplate.opsForList().range(key, start, -end);
+        return stringRedisTemplate.opsForList().range(key, start, end);
     }
 
     /**

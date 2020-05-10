@@ -10,6 +10,7 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -32,6 +33,9 @@
       <if test="email != null">
         email = #{email},
       </if>
+      <if test="picUrl != null">
+        pic_url = #{picUrl},
+      </if>
       update_time = now()
     </set>
     where id = #{id}
@@ -43,13 +47,15 @@
       <if test="phone != null">
         phone,
       </if>
-      phone,
       user_type,
       username,
       password,
       `name`,
       <if test="email != null">
         email,
+      </if>
+      <if test="picUrl != null">
+        pic_url,
       </if>
       create_time,
       update_time
@@ -66,6 +72,9 @@
       <if test="email != null">
         #{email},
       </if>
+    <if test="picUrl != null">
+      #{picUrl},
+    </if>
       now(), now()
     )
   </insert>
@@ -75,19 +84,22 @@
       charging.user_info
     <where>
       <if test="phone != null">
-        and phone = #{phone}
+        and phone like concat('%', #{phone}, '%')
       </if>
       <if test="name != null and name != ''">
         and `name` like concat('%', #{name}, '%')
       </if>
       <if test="email != null and email != ''">
-        and email = #{email},
+        and email like concat('%', #{email}, '%')
       </if>
       <if test="username != null and username != ''">
         and `username` = #{username}
       </if>
       <if test="password != null and password != ''">
         and password = #{password}
+      </if>
+      <if test="userType != null">
+        and user_type = #{userType}
       </if>
     </where>
   </select>
@@ -96,6 +108,19 @@
     select * from
     charging.user_info
     where id = #{id}
+  </select>
+
+  <select id="countUserInfo" resultType="java.lang.Integer" parameterType="com.zyt.charging.provider.entity.domain.CountCondition">
+    select COUNT(*) FROM
+    charging.user_info
+    <where>
+      <if test="startTime != null">
+        and create_time > #{startTime}
+      </if>
+      <if test="endTime != null">
+        and #{endTime} > create_time
+      </if>
+    </where>
   </select>
 
 </mapper>

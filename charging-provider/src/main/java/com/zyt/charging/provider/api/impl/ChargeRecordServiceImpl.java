@@ -3,6 +3,8 @@ package com.zyt.charging.provider.api.impl;
 import com.zyt.charging.api.entity.reponse.BaseResult;
 import com.zyt.charging.api.entity.request.ChargeRecordChangeReq;
 import com.zyt.charging.api.entity.request.ChargeRecordCountReq;
+import com.zyt.charging.api.entity.request.ChargeRecordQueryReq;
+import com.zyt.charging.api.entity.vo.ChargeRecordVO;
 import com.zyt.charging.api.service.ChargeRecordService;
 import com.zyt.charging.provider.entity.domain.ChargeInfoDO;
 import com.zyt.charging.provider.entity.domain.ChargeRecordDO;
@@ -11,8 +13,11 @@ import com.zyt.charging.provider.manager.ChargeInfoManager;
 import com.zyt.charging.provider.manager.ChargeRecordManager;
 import com.zyt.charging.provider.manager.UserInfoManager;
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.beans.BeanUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: zyt
@@ -59,5 +64,37 @@ public class ChargeRecordServiceImpl implements ChargeRecordService {
         chargeRecordDO.setStartTime(request.getStartTime());
         int i = chargeRecordManager.insertChargeRecord(chargeRecordDO);
         return BaseResult.success(i, "记录充电记录成功");
+    }
+
+    @Override
+    public BaseResult<List<ChargeRecordVO>> selectRecordByUserId(ChargeRecordQueryReq request) {
+        List<ChargeRecordVO> chargeRecordVOS = new ArrayList<>();
+        List<ChargeRecordDO> chargeRecordDOS = chargeRecordManager.selectRecordByUserId(request.getUserId());
+        chargeRecordDOS.forEach(chargeRecordDO -> {
+            ChargeRecordVO chargeRecordVO = new ChargeRecordVO();
+            BeanUtils.copyProperties(chargeRecordDO, chargeRecordVO);
+            chargeRecordVOS.add(chargeRecordVO);
+        });
+
+        return BaseResult.success(chargeRecordVOS);
+    }
+
+    @Override
+    public BaseResult<List<ChargeRecordVO>> selectRecordByChargeInfoId(ChargeRecordQueryReq request) {
+        List<ChargeRecordVO> chargeRecordVOS = new ArrayList<>();
+        List<ChargeRecordDO> chargeRecordDOS = chargeRecordManager.selectRecordByUserId(request.getChargeInfoId());
+        chargeRecordDOS.forEach(chargeRecordDO -> {
+            ChargeRecordVO chargeRecordVO = new ChargeRecordVO();
+            BeanUtils.copyProperties(chargeRecordDO, chargeRecordVO);
+            chargeRecordVOS.add(chargeRecordVO);
+        });
+
+        return BaseResult.success(chargeRecordVOS);
+    }
+
+    @Override
+    public BaseResult<Integer> countChargeRecordByUser(ChargeRecordCountReq request) {
+        int i = chargeRecordManager.countChargeRecordByUser(request.getChargeInfoId());
+        return BaseResult.success(i, "成功");
     }
 }

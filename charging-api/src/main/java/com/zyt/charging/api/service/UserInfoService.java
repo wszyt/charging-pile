@@ -1,6 +1,7 @@
 package com.zyt.charging.api.service;
 
 import com.zyt.charging.api.entity.reponse.BaseResult;
+import com.zyt.charging.api.entity.reponse.ChargeCountResp;
 import com.zyt.charging.api.entity.request.UserInfoChangeReq;
 import com.zyt.charging.api.entity.request.UserInfoQueryReq;
 import com.zyt.charging.api.entity.vo.UserInfoVO;
@@ -40,4 +41,9 @@ public interface UserInfoService {
      */
     BaseResult<UserInfoVO> selectUserInfoById(UserInfoQueryReq request);
 
+    /**
+     * count
+     * @return
+     */
+    BaseResult<ChargeCountResp> selectChargeCount();
 }

@@ -1,5 +1,6 @@
 package com.zyt.charging.provider.manager;
 
+import com.zyt.charging.provider.entity.domain.CountCondition;
 import com.zyt.charging.provider.entity.domain.UserInfoDO;
 import com.zyt.charging.provider.mapper.UserInfoMapper;
 import javax.annotation.Resource;
@@ -30,5 +31,10 @@ public class UserInfoManager {
 
     public UserInfoDO selectUserInfoById(Long id) {
         return userInfoMapper.selectUserInfoById(id);
+    }
+
+    public Integer countUserInfo(CountCondition countCondition) {
+        Integer count = userInfoMapper.countUserInfo(countCondition);
+        return count == null ? 0 : count;
     }
 }

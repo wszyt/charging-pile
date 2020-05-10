@@ -1,9 +1,12 @@
 package com.zyt.charging.web.controller;
 
 import com.zyt.charging.api.entity.reponse.BaseResult;
+import com.zyt.charging.api.entity.request.ChargeRecordQueryReq;
 import com.zyt.charging.api.entity.request.UserInfoQueryReq;
 import com.zyt.charging.api.entity.request.UserInfoChangeReq;
+import com.zyt.charging.api.entity.vo.ChargeRecordVO;
 import com.zyt.charging.api.entity.vo.UserInfoVO;
+import com.zyt.charging.api.service.ChargeRecordService;
 import com.zyt.charging.api.service.UserInfoService;
 import java.util.List;
 import org.apache.dubbo.config.annotation.Reference;
@@ -19,6 +22,9 @@ public class UserController {
 
     @Reference(version = "${service.version}")
     UserInfoService userInfoService;
+
+    @Reference(version = "${service.version}")
+    ChargeRecordService chargeRecordService;
 
     @ModelAttribute
     public UserInfoVO getUserInfoVO(Long id) {
@@ -98,5 +104,35 @@ public class UserController {
             }
             return "redirect:/selectAllUserInfoList";
         }
+    }
+
+    @RequestMapping(value = "/userDetail")
+    public String userDetail(UserInfoVO userInfoVO, Model model) {
+        BaseResult<List<ChargeRecordVO>> chargeRecordVOS = chargeRecordService
+                .selectRecordByUserId(ChargeRecordQueryReq.builder().userId(userInfoVO.getId()).build());
+        model.addAttribute("chargeRecordVOS", chargeRecordVOS.getData());
+        model.addAttribute("userInfoVO", userInfoVO);
+        return "userDetail";
+    }
+
+    @RequestMapping(value = "/selectUserDetailList", method = RequestMethod.GET)
+    public String selectUserDetailList(Model model) {
+        UserInfoQueryReq request = new UserInfoQueryReq();
+        BaseResult<List<UserInfoVO>> listBaseResult = userInfoService.selectUserInfo(request);
+        model.addAttribute("baseResult", listBaseResult);
+        return "userDetailList";
+    }
+
+    @RequestMapping(value = "/selectUserDetailListByCondition", method = RequestMethod.POST)
+    public String selectUserDetailListByCondition(String username, String name, Integer phone, String email, String isChecked, Model model) {
+        UserInfoQueryReq userInfoQueryReq = new UserInfoQueryReq();
+        userInfoQueryReq.setUsername(username);
+        userInfoQueryReq.setName(name);
+        userInfoQueryReq.setPhone(phone);
+        userInfoQueryReq.setEmail(email);
+        userInfoQueryReq.setUserType(isChecked == null ? null : 0);
+        BaseResult<List<UserInfoVO>> listBaseResult = userInfoService.selectUserInfo(userInfoQueryReq);
+        model.addAttribute("baseResult", listBaseResult);
+        return "userDetailList";
     }
 }

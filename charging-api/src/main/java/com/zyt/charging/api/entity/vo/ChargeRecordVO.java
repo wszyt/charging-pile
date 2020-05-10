@@ -12,12 +12,17 @@ import java.util.Date;
 @Data
 public class ChargeRecordVO implements Serializable {
     private Long id;
-    private Integer chargeInfoId;
-    private Integer userInfoId;
+    private Long chargeInfoId;
+    private Long userInfoId;
     // 充电时长-单位-秒
     private Integer chargeTime;
     // 使用电量
-    private Integer chargeUser;
+    private Integer powerUsed;
+    // 充电开始时间
+    private Date startTime;
+    // 消费价格
+    private Integer cost;
+    private Date endTime;
     private Date createTime;
     private Date updateTime;
 }

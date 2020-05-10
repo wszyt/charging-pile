@@ -1,15 +1,16 @@
-package com.zyt.charging.provider.entity.domain;
+package com.zyt.charging.web.resp;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author: zyt
- * @Date: 2020/4/1
+ * @Author: zyt
+ * @Date: 2020/5/10
  */
 @Data
-public class ChargeRecordDO {
+public class ChargeDetailResp implements Serializable {
     private Long id;
     private Long chargeInfoId;
     private Long userInfoId;
@@ -17,13 +18,11 @@ public class ChargeRecordDO {
     private Integer chargeTime;
     // 使用电量
     private Integer powerUsed;
-    // 计价方式
-    private Integer priceType;
-    // 消费价格
-    private Integer cost;
     // 充电开始时间
     private Date startTime;
+    // 消费价格
+    private Integer cost;
     private Date endTime;
-    private Date createTime;
-    private Date updateTime;
+    // 用户名称
+    private String name;
 }

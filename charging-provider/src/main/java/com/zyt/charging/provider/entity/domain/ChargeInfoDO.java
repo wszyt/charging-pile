@@ -11,6 +11,7 @@ import java.util.Date;
 @Data
 public class ChargeInfoDO {
     private Long id;
+    private Long brandsId;
     // 充电次数
     private Integer chargeTimes;
     // 充电单价
@@ -31,6 +32,8 @@ public class ChargeInfoDO {
     private String type;
     // 充电桩品牌
     private String brands;
+    // 图片
+    private String picUrl;
     private Date createTime;
     private Date updateTime;
 }

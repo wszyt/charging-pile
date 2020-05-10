@@ -2,12 +2,15 @@ package com.zyt.charging.web.controller;
 
 import com.zyt.charging.api.entity.enums.RedisEnum;
 import com.zyt.charging.api.entity.reponse.BaseResult;
-import com.zyt.charging.api.entity.request.UserInfoQueryReq;
+import com.zyt.charging.api.entity.reponse.ChargeCountResp;
+import com.zyt.charging.api.entity.request.*;
+import com.zyt.charging.api.entity.vo.ChargeRecordVO;
 import com.zyt.charging.api.entity.vo.UserInfoVO;
+import com.zyt.charging.api.service.ChargeRecordService;
 import com.zyt.charging.api.service.RedisService;
+import com.zyt.charging.api.service.UserInfoService;
+import com.zyt.charging.web.resp.ChargeDetailResp;
 import com.zyt.charging.web.resp.PlaceCodeResp;
-import com.zyt.charging.api.entity.request.ChargeInfoChangeReq;
-import com.zyt.charging.api.entity.request.ChargeInfoQueryReq;
 import com.zyt.charging.api.entity.vo.ChargeInfoVO;
 import com.zyt.charging.api.service.ChargeInfoService;
 
@@ -17,6 +20,7 @@ import java.util.List;
 
 import com.zyt.charging.web.utlis.JsonUtils;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +32,10 @@ public class ChargeController {
     ChargeInfoService chargeInfoService;
     @Reference(version = "${service.version}")
     RedisService redisService;
+    @Reference(version = "${service.version}")
+    ChargeRecordService chargeRecordService;
+    @Reference(version = "${service.version}")
+    UserInfoService userInfoService;
 
     @ModelAttribute
     public ChargeInfoVO getChargeInfoVO(Long id) {
@@ -117,15 +125,45 @@ public class ChargeController {
             placeCodeResp.setBrands(split[2]);
             placeCodeResp.setType(split[3]);
             placeCodeResp.setStatus(split[4]);
+            placeCodeResp.setPic(split[5]);
+            placeCodeResp.setId(split[6]);
             placeCodeRespList.add(placeCodeResp);
         });
         return JsonUtils.obj2json(placeCodeRespList);
     }
 
-    @ResponseBody
     @RequestMapping(value = "/flashPlaceCode")
-    public BaseResult<Void> flashPlaceCode() {
+    public String flashPlaceCode() {
         BaseResult<Void> baseResult = chargeInfoService.flashPlaceCode();
-        return BaseResult.success();
+        return "index";
+    }
+
+    @RequestMapping(value = "/chargeDetail")
+    public String getChargeDetail(ChargeInfoVO chargeInfoVO, Model model) {
+        BaseResult<List<ChargeRecordVO>> chargeRecordVOS = chargeRecordService
+                .selectRecordByChargeInfoId(ChargeRecordQueryReq.builder().chargeInfoId(chargeInfoVO.getId()).build());
+        List<ChargeDetailResp> chargeDetailRespList = new ArrayList<>();
+        chargeRecordVOS.getData().forEach(chargeRecordVO -> {
+            ChargeDetailResp chargeDetailResp = new ChargeDetailResp();
+            BeanUtils.copyProperties(chargeRecordVO, chargeDetailResp);
+            UserInfoQueryReq userInfoQueryReq = new UserInfoQueryReq();
+            userInfoQueryReq.setId(chargeRecordVO.getUserInfoId());
+            BaseResult<UserInfoVO> userInfoVOBaseResult = userInfoService.selectUserInfoById(userInfoQueryReq);
+            chargeDetailResp.setName(userInfoVOBaseResult.getData().getName());
+            chargeDetailRespList.add(chargeDetailResp);
+        });
+
+        BaseResult<Integer> countBaseResult = chargeRecordService.countChargeRecordByUser(ChargeRecordCountReq.builder().chargeInfoId(chargeInfoVO.getId()).build());
+        model.addAttribute("userCount", countBaseResult.getData());
+        model.addAttribute("chargeRecordVOS", chargeDetailRespList);
+        model.addAttribute("chargeInfoVO", chargeInfoVO);
+        return "chargeDetail";
+    }
+
+    @RequestMapping(value = "/chargeRecordTotal")
+    public String chargeRecordTotal(Model model) {
+        BaseResult<ChargeCountResp> chargeCountRespBaseResult = userInfoService.selectChargeCount();
+        model.addAttribute("chargeCountResp", chargeCountRespBaseResult.getData());
+        return "chargeCountTotal";
     }
 }

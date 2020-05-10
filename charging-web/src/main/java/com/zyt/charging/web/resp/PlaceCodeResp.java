@@ -15,4 +15,6 @@ public class PlaceCodeResp implements Serializable {
   private String status;
   private String brands;
   private String type;
+  private String pic;
+  private String id;
 }

@@ -7,6 +7,7 @@
     <result column="user_info_id" jdbcType="INTEGER" property="userInfoId"/>
     <result column="charge_time" jdbcType="INTEGER" property="chargeTime"/>
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
     <result column="power_used" jdbcType="INTEGER" property="powerUsed"/>
     <result column="price_type" jdbcType="INTEGER" property="priceType"/>
     <result column="cost" jdbcType="INTEGER" property="cost"/>
@@ -20,6 +21,7 @@
     user_info_id,
     charge_time,
     start_time,
+    end_time,
     power_used,
     price_type,
     cost,
@@ -31,6 +33,7 @@
     #{userInfoId},
     #{chargeTime},
     #{startTime},
+    #{endTime},
     #{powerUsed},
     #{priceType},
     #{cost},
@@ -43,10 +46,10 @@
       charging.charge_record
     <where>
       <if test="startTime != null">
-        and create_time > #{startTime}
+        and start_time > #{startTime}
       </if>
       <if test="endTime != null">
-        and #{endTime} > create_time
+        and #{endTime} > end_time
       </if>
     </where>
   </select>
@@ -55,6 +58,19 @@
     select * from
     charging.charge_record
     where user_info_id = #{userId}
+  </select>
+
+  <select id="selectRecordByChargeInfoId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select * from
+    charging.charge_record
+    where charge_info_id = #{chargeInfoId}
+  </select>
+
+  <select id="countChargeRecordByUser" resultType="java.lang.Integer">
+    select COUNT(*) FROM
+    charging.charge_record
+    where charge_info_id = #{chargeInfoId}
+    group by user_info_id
   </select>
 
 </mapper>

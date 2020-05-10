@@ -18,7 +18,7 @@ public class ChargeInfoVO implements Serializable {
     private Integer price;
     // 计费类型
     private Integer priceType;
-    // 充电桩状态 0-无法使用 1-可以使用 2-使用中 3-待维修
+    // 充电桩状态 0-可使用 1-使用中 2-不可用
     private Integer status;
     // 充电桩功率
     private Integer power;
@@ -32,6 +32,9 @@ public class ChargeInfoVO implements Serializable {
     private String type;
     // 充电桩品牌
     private String brands;
+    // 图片
+    private String picUrl;
     private Date createTime;
     private Date updateTime;
+    private String desc;
 }

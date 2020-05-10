@@ -20,6 +20,7 @@ public class UserInfoVO implements Serializable {
     private String password;
     private String name;
     private String email;
+    private String picUrl;
     private Date createTime;
     private Date updateTime;
 }

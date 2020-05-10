@@ -2,6 +2,8 @@ package com.zyt.charging.provider.mapper;
 
 import com.zyt.charging.provider.entity.domain.ChargeInfoDO;
 import java.util.List;
+
+import com.zyt.charging.provider.entity.domain.CountCondition;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -46,8 +48,11 @@ public interface ChargeInfoMapper {
 
   /**
    * 根据充电桩编号查询充电桩信息
+   *
    * @param code
    * @return
    */
   ChargeInfoDO selectChargeInfoByCode(@Param("code") String code);
+
+  Integer countChargeInfo(CountCondition countCondition);
 }

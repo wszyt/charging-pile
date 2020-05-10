@@ -1,6 +1,8 @@
 package com.zyt.charging.api.entity.request;
 
 import java.io.Serializable;
+
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -15,4 +17,5 @@ public class UserInfoQueryReq implements Serializable {
     private String email;
     private String username;
     private String password;
+    private Integer userType;
 }

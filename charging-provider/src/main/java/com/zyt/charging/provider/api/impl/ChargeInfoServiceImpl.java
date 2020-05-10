@@ -7,7 +7,9 @@ import com.zyt.charging.api.entity.request.ChargeInfoChangeReq;
 import com.zyt.charging.api.entity.request.ChargeInfoQueryReq;
 import com.zyt.charging.api.entity.vo.ChargeInfoVO;
 import com.zyt.charging.api.service.ChargeInfoService;
+import com.zyt.charging.provider.entity.domain.ChargeBrandsDO;
 import com.zyt.charging.provider.entity.domain.ChargeInfoDO;
+import com.zyt.charging.provider.manager.ChargeBrandsManager;
 import com.zyt.charging.provider.manager.ChargeInfoManager;
 import com.zyt.charging.provider.manager.RedisManager;
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
     ChargeInfoManager chargeInfoManager;
     @Resource
     RedisManager redisManager;
+    @Resource
+    ChargeBrandsManager chargeBrandsManager;
 
     @Override
     public BaseResult<Void> insertChargeInfo(ChargeInfoChangeReq request) {
@@ -90,6 +94,8 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
         }
         ChargeInfoVO chargeInfoVO = new ChargeInfoVO();
         BeanUtils.copyProperties(chargeInfoDO, chargeInfoVO);
+        ChargeBrandsDO chargeBrandsDO = chargeBrandsManager.selectByPrimaryKey(chargeInfoDO.getBrandsId());
+        chargeInfoVO.setDesc(chargeBrandsDO.getDesc());
         return BaseResult.success(chargeInfoVO);
     }
 
@@ -115,7 +121,9 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
         List<ChargeInfoDO> chargeInfoDOS = chargeInfoManager.selectChargeInfo(chargeInfoDO);
         redisManager.del(RedisEnum.PLACE_CODE.getCode());
         chargeInfoDOS.forEach(chargeInfo -> {
-            redisManager.lPushListString(RedisEnum.PLACE_CODE.getCode(), chargeInfo.getPlaceCode() + "," + chargeInfo.getBrands() + "," + chargeInfo.getType() + "," + ChargeTypeEnum.getByCode(chargeInfo.getStatus()));
+            String info = chargeInfo.getPlaceCode() + "," + chargeInfo.getBrands() + "," + chargeInfo.getType()
+                    + "," + ChargeTypeEnum.getByCode(chargeInfo.getStatus()) + "," + chargeInfo.getPicUrl() + "," + chargeInfo.getId();
+            redisManager.lPushListString(RedisEnum.PLACE_CODE.getCode(), info);
         });
         return BaseResult.success();
     }
