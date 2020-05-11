@@ -41,6 +41,29 @@
     )
   </insert>
 
+  <update id="updateChargeRecord" parameterType="com.zyt.charging.provider.entity.domain.ChargeRecordDO">
+    update charging.charge_record
+    <set>
+      <if test="chargeTime != null ">
+        charge_time = #{chargeTime},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime},
+      </if>
+      <if test="powerUsed != null">
+        power_used = #{powerUsed},
+      </if>
+      <if test="priceType != null">
+        price_type = #{priceType},
+      </if>
+      <if test="cost != null">
+        cost = #{cost},
+      </if>
+      update_time = now()
+    </set>
+    where id = #{id}
+  </update>
+
   <select id="countChargeRecord" resultType="java.lang.Integer">
     select COUNT(*) FROM
       charging.charge_record
@@ -58,6 +81,12 @@
     select * from
     charging.charge_record
     where user_info_id = #{userId}
+  </select>
+
+  <select id="selectRecordById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select * from
+    charging.charge_record
+    where id = #{id}
   </select>
 
   <select id="selectRecordByChargeInfoId" resultMap="BaseResultMap" parameterType="java.lang.Long">

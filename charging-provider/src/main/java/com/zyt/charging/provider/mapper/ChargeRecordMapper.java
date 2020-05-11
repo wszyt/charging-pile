@@ -15,32 +15,36 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface ChargeRecordMapper {
 
-  /**
-   * 根据条件获取记录条数
-   *
-   * @param startTime
-   * @param endTime
-   * @return
-   */
-  int countChargeRecord(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
+    /**
+     * 根据条件获取记录条数
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    int countChargeRecord(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
-  /**
-   * 插入充电记录
-   *
-   * @param chargeRecordDO
-   * @return
-   */
-  int insertChargeRecord(ChargeRecordDO chargeRecordDO);
+    /**
+     * 插入充电记录
+     *
+     * @param chargeRecordDO
+     * @return
+     */
+    int insertChargeRecord(ChargeRecordDO chargeRecordDO);
 
-  /**
-   * 根据用户id查询用户充电记录
-   *
-   * @param userId
-   * @return
-   */
-  List<ChargeRecordDO> selectRecordByUserId(@Param("userId") Long userId);
+    /**
+     * 根据用户id查询用户充电记录
+     *
+     * @param userId
+     * @return
+     */
+    List<ChargeRecordDO> selectRecordByUserId(@Param("userId") Long userId);
 
-  List<ChargeRecordDO> selectRecordByChargeInfoId(@Param("chargeInfoId") Long chargeInfoId);
+    List<ChargeRecordDO> selectRecordByChargeInfoId(@Param("chargeInfoId") Long chargeInfoId);
 
-  Integer countChargeRecordByUser(@Param("chargeInfoId") Long chargeInfoId);
+    Integer countChargeRecordByUser(@Param("chargeInfoId") Long chargeInfoId);
+
+    int updateChargeRecord(ChargeRecordDO chargeRecordDO);
+
+    ChargeRecordDO selectRecordById(Long id);
 }

@@ -1,7 +1,9 @@
 package com.zyt.charging.api.entity.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -11,7 +13,10 @@ import java.io.Serializable;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ChargeRecordQueryReq implements Serializable {
+    private Long id;
     private Long userId;
     private Long chargeInfoId;
     private String username;

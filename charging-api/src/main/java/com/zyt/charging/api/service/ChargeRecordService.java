@@ -37,6 +37,8 @@ public interface ChargeRecordService {
      */
     BaseResult<List<ChargeRecordVO>> selectRecordByUserId(ChargeRecordQueryReq request);
 
+    BaseResult<ChargeRecordVO> selectRecordById(ChargeRecordQueryReq request);
+
     /**
      * 根据充电桩id查询充电记录
      * @param request
@@ -50,4 +52,18 @@ public interface ChargeRecordService {
      * @return
      */
     BaseResult<Integer> countChargeRecordByUser(ChargeRecordCountReq request);
+
+    /**
+     * 开始充电
+     * @param chargeRecordVO
+     * @return
+     */
+    BaseResult<ChargeRecordVO> startCharge(ChargeRecordVO chargeRecordVO);
+
+    /**
+     * 结束充电
+     * @param chargeRecordVO
+     * @return
+     */
+    BaseResult<Void> endCharge(ChargeRecordVO chargeRecordVO);
 }

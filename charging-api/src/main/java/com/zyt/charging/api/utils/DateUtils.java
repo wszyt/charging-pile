@@ -84,4 +84,22 @@ public class DateUtils {
         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
         return cal.getTime();
     }
+
+    public static Date getDefaultDate() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(1970, Calendar.JANUARY, 1);
+        return cal.getTime();
+    }
+
+    /**
+     * 增加几秒
+     * @param date
+     * @return
+     */
+    public static Date addSecond(Date date, Integer second) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.SECOND, second);
+        return calendar.getTime();
+    }
 }

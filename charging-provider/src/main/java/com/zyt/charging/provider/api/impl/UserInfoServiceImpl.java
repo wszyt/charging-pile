@@ -1,6 +1,6 @@
 package com.zyt.charging.provider.api.impl;
 
-import com.zyt.charging.api.entity.enums.ChargeTypeEnum;
+import com.zyt.charging.api.entity.enums.ChargeStatusEnum;
 import com.zyt.charging.api.entity.reponse.BaseResult;
 import com.zyt.charging.api.entity.reponse.ChargeCountResp;
 import com.zyt.charging.api.entity.request.UserInfoChangeReq;
@@ -117,7 +117,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             countCondition.setBrands(chargeBrandsDO.getBrands());
             Integer typeCount = chargeInfoManager.countChargeBrands(countCondition);
             Integer chargeCount = chargeInfoManager.countChargeInfo(countCondition);
-            countCondition.setStatus(ChargeTypeEnum.UN_USABLE.getCode());
+            countCondition.setStatus(ChargeStatusEnum.UN_USABLE.getCode());
             Integer unableCount = chargeInfoManager.countChargeInfo(countCondition);
             CountCondition countCondition2 = new CountCondition();
             countCondition2.setBrands(chargeBrandsDO.getBrands());
