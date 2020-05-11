@@ -28,6 +28,7 @@
         <pagehepler.version>1.2.13</pagehepler.version>
         <commons-pool2.version>2.8.0</commons-pool2.version>
         <fastJson.version>1.2.68</fastJson.version>
+        <fastdfs.version>1.27-SNAPSHOT</fastdfs.version>
     </properties>
 
     <dependencyManagement>
@@ -93,6 +94,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastJson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.csource</groupId>
+                <artifactId>fastdfs-client-java</artifactId>
+                <version>${fastdfs.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

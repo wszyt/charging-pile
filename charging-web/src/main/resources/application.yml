@@ -60,3 +60,9 @@ management:
         defaults: memory
         ## StatusChecker Name extras (default : empty )
         extras: load,threadpool
+
+#fastdfs.base.url: http://192.168.38.128:8888/
+#storage:
+#  type: fastdfs
+#  fastdfs:
+#    tracker_server: 192.168.38.128:22122
