@@ -95,7 +95,7 @@ public class ChargeRecordServiceImpl implements ChargeRecordService {
     @Override
     public BaseResult<List<ChargeRecordVO>> selectRecordByChargeInfoId(ChargeRecordQueryReq request) {
         List<ChargeRecordVO> chargeRecordVOS = new ArrayList<>();
-        List<ChargeRecordDO> chargeRecordDOS = chargeRecordManager.selectRecordByUserId(request.getChargeInfoId());
+        List<ChargeRecordDO> chargeRecordDOS = chargeRecordManager.selectRecordByChargeInfoId(request.getChargeInfoId());
         chargeRecordDOS.forEach(chargeRecordDO -> {
             ChargeRecordVO chargeRecordVO = new ChargeRecordVO();
             BeanUtils.copyProperties(chargeRecordDO, chargeRecordVO);
@@ -148,11 +148,10 @@ public class ChargeRecordServiceImpl implements ChargeRecordService {
         if (chargeInfoDO.getPriceType().equals(1)) {
             Integer time = chargeRecordDO.getChargeTime() / 60 / 60 + 1;
             chargeRecordDO.setCost(time * chargeInfoDO.getPrice());
-
         } else {
             chargeRecordDO.setCost(chargeRecordDO.getPowerUsed() * chargeInfoDO.getPrice());
         }
         chargeRecordManager.updateChargeRecord(chargeRecordDO, chargeInfoDO);
-        return BaseResult.success();
+        return BaseResult.success("充电成功");
     }
 }

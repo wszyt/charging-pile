@@ -32,6 +32,7 @@ public interface ChargeRecordService {
 
     /**
      * 根据用户id查询充电记录
+     *
      * @param request
      * @return
      */
@@ -41,6 +42,7 @@ public interface ChargeRecordService {
 
     /**
      * 根据充电桩id查询充电记录
+     *
      * @param request
      * @return
      */
@@ -48,6 +50,7 @@ public interface ChargeRecordService {
 
     /**
      * 根据充电桩id查询该充电桩一共所使用人数
+     *
      * @param request
      * @return
      */
@@ -55,6 +58,7 @@ public interface ChargeRecordService {
 
     /**
      * 开始充电
+     *
      * @param chargeRecordVO
      * @return
      */
@@ -62,6 +66,7 @@ public interface ChargeRecordService {
 
     /**
      * 结束充电
+     *
      * @param chargeRecordVO
      * @return
      */

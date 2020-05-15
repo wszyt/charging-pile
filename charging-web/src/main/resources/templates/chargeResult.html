@@ -1,0 +1,14 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<ul style="list-style: none">
+    <li>充电时长 <p th:text="${chargeRecordVO.getChargeTime()}"></p> 秒</li>
+    <li>消耗电量 <p th:text="${chargeRecordVO.getPowerUsed()}"></p> 千瓦时</li>
+    <li>花费 <p th:text="${chargeRecordVO.getCost()}"></p> 元</li>
+</ul>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.zyt.charging.api.entity.request;
 
 import java.io.Serializable;
+
 import lombok.Data;
 
 /**
@@ -9,9 +10,9 @@ import lombok.Data;
  */
 @Data
 public class ChargeInfoQueryReq implements Serializable {
-  private Long id;
-  private Integer status;
-  private String city;
-  private String type;
-  private String code;
+    private Long id;
+    private Integer status;
+    private String city;
+    private String type;
+    private String code;
 }

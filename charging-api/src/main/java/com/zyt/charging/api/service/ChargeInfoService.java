@@ -4,6 +4,7 @@ import com.zyt.charging.api.entity.reponse.BaseResult;
 import com.zyt.charging.api.entity.request.ChargeInfoChangeReq;
 import com.zyt.charging.api.entity.request.ChargeInfoQueryReq;
 import com.zyt.charging.api.entity.vo.ChargeInfoVO;
+
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ public interface ChargeInfoService {
 
     /**
      * 插入充电桩信息
+     *
      * @param request
      * @return
      */
@@ -21,6 +23,7 @@ public interface ChargeInfoService {
 
     /**
      * 更新充电桩信息
+     *
      * @param request
      * @return
      */
@@ -28,6 +31,7 @@ public interface ChargeInfoService {
 
     /**
      * 根据条件查询充电桩信息
+     *
      * @param request
      * @return
      */
@@ -35,6 +39,7 @@ public interface ChargeInfoService {
 
     /**
      * 根据Id查询充电桩信息
+     *
      * @param request
      * @return
      */
@@ -42,6 +47,7 @@ public interface ChargeInfoService {
 
     /**
      * 根据充电桩编号code查询充电桩信息
+     *
      * @param request
      * @return
      */
@@ -49,6 +55,7 @@ public interface ChargeInfoService {
 
     /**
      * 刷新redis中充电桩坐标
+     *
      * @return
      */
     BaseResult<Void> flashPlaceCode();

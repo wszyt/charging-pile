@@ -12,6 +12,7 @@ import java.util.List;
  */
 @Mapper
 public interface ChargeBrandsMapper {
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(ChargeBrandsDO record);
@@ -28,5 +29,9 @@ public interface ChargeBrandsMapper {
 
     Integer countChargeBrands(CountCondition countCondition);
 
+    /**
+     * 查询充电桩的所有品牌
+     * @return
+     */
     List<ChargeBrandsDO> selectEachChargeBrands();
 }

@@ -130,14 +130,16 @@
 </div>
 <th:block th:include="includes/foot :: foot"></th:block>
 <script>
-    function startCharge(url) {
+    function endCharge(url) {
         //通过ajax请求html的方式将jsp装入到模态框中
         $.ajax({
             url: url,
             type: "get",
             dataType : "html",
             success : function (data) {
+                $("#modal-detail-body").html(data);
 
+                $("#articleContent").modal("show");
             }
         })
     }

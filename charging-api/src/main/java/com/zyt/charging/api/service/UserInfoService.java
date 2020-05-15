@@ -5,6 +5,7 @@ import com.zyt.charging.api.entity.reponse.ChargeCountResp;
 import com.zyt.charging.api.entity.request.UserInfoChangeReq;
 import com.zyt.charging.api.entity.request.UserInfoQueryReq;
 import com.zyt.charging.api.entity.vo.UserInfoVO;
+
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ public interface UserInfoService {
 
     /**
      * 新增用户信息
+     *
      * @param request
      * @return
      */
@@ -22,6 +24,7 @@ public interface UserInfoService {
 
     /**
      * 修改用户信息
+     *
      * @param request
      * @return
      */
@@ -29,6 +32,7 @@ public interface UserInfoService {
 
     /**
      * 按条件查询用户信息
+     *
      * @param request
      * @return BaseResult
      */
@@ -36,6 +40,7 @@ public interface UserInfoService {
 
     /**
      * 根据Id查询用户信息
+     *
      * @param request
      * @return
      */
@@ -43,6 +48,7 @@ public interface UserInfoService {
 
     /**
      * count
+     *
      * @return
      */
     BaseResult<ChargeCountResp> selectChargeCount();

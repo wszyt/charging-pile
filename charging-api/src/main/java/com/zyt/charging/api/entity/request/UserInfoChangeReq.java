@@ -1,7 +1,9 @@
 package com.zyt.charging.api.entity.request;
 
 import com.zyt.charging.api.entity.vo.UserInfoVO;
+
 import java.io.Serializable;
+
 import lombok.Data;
 
 /**

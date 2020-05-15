@@ -79,12 +79,13 @@ public class ChargeRecordController {
     }
 
     @RequestMapping(value = "/endCharge")
-    public String endCharge(ChargeRecordVO chargeRecordVO) {
+    public String endCharge(ChargeRecordVO chargeRecordVO, RedirectAttributes redirectAttributes) {
         BaseResult<Void> baseResult = chargeRecordService.endCharge(chargeRecordVO);
         if (baseResult.getStatus().equals(BaseResult.STATUS_FAIL)) {
             return "endCharge";
         }
-        return "index";
+        redirectAttributes.addFlashAttribute("baseResult", baseResult);
+        return "redirect:/charge";
     }
 
     @RequestMapping(value = "/endChargePage")
@@ -95,5 +96,12 @@ public class ChargeRecordController {
     @RequestMapping(value = "/charge")
     public String charge() {
         return "charge";
+    }
+
+    @RequestMapping(value = "/chargeResult")
+    public String chargeResult(Long id, Model model) {
+        BaseResult<ChargeRecordVO> chargeRecordVOBaseResult = chargeRecordService.selectRecordById(ChargeRecordQueryReq.builder().id(id).build());
+        model.addAttribute("chargeRecordVO", chargeRecordVOBaseResult.getData());
+        return "chargeResult";
     }
 }
