@@ -70,5 +70,5 @@ public interface ChargeRecordService {
      * @param chargeRecordVO
      * @return
      */
-    BaseResult<Void> endCharge(ChargeRecordVO chargeRecordVO);
+    BaseResult<ChargeRecordVO> endCharge(ChargeRecordVO chargeRecordVO);
 }

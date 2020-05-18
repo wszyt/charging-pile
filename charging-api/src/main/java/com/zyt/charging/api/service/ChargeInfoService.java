@@ -4,6 +4,7 @@ import com.zyt.charging.api.entity.reponse.BaseResult;
 import com.zyt.charging.api.entity.request.ChargeInfoChangeReq;
 import com.zyt.charging.api.entity.request.ChargeInfoQueryReq;
 import com.zyt.charging.api.entity.vo.ChargeInfoVO;
+import com.zyt.charging.api.entity.vo.ReceiveReportVO;
 
 import java.util.List;
 
@@ -59,4 +60,11 @@ public interface ChargeInfoService {
      * @return
      */
     BaseResult<Void> flashPlaceCode();
+
+    /**
+     * 校验充电桩参数
+     * @param chargeInfoVO
+     * @return
+     */
+    BaseResult<Void> checkChargeInfo(ChargeInfoVO chargeInfoVO);
 }

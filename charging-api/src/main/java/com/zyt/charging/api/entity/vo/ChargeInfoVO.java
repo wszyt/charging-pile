@@ -37,4 +37,14 @@ public class ChargeInfoVO implements Serializable {
     private Date createTime;
     private Date updateTime;
     private String desc;
+    private String voltage;
+    private String frequency;
+    private String current;
+    private String activePower;
+    private String reactivePower;
+    private String activeElectric;
+    private String reactiveElectric;
+    private Long nodeInfoId;
+    private Long receiveReportId;
+    private String nodeCode;
 }

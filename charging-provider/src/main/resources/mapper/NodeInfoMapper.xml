@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.charging.provider.mapper.NodeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zyt.charging.provider.entity.domain.NodeInfoDO">
+    <!--@mbg.generated-->
+    <!--@Table node_info-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="route1" jdbcType="VARCHAR" property="route1" />
+    <result column="route2" jdbcType="VARCHAR" property="route2" />
+    <result column="route3" jdbcType="VARCHAR" property="route3" />
+    <result column="route4" jdbcType="VARCHAR" property="route4" />
+    <result column="route5" jdbcType="VARCHAR" property="route5" />
+    <result column="route6" jdbcType="VARCHAR" property="route6" />
+    <result column="route7" jdbcType="VARCHAR" property="route7" />
+    <result column="route8" jdbcType="VARCHAR" property="route8" />
+    <result column="reserve" jdbcType="VARCHAR" property="reserve" />
+    <result column="next_route" jdbcType="VARCHAR" property="nextRoute" />
+    <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
+    <result column="reserve2" jdbcType="VARCHAR" property="reserve2" />
+    <result column="reserve3" jdbcType="VARCHAR" property="reserve3" />
+    <result column="reserve4" jdbcType="VARCHAR" property="reserve4" />
+    <result column="reserve5" jdbcType="VARCHAR" property="reserve5" />
+    <result column="reserve6" jdbcType="VARCHAR" property="reserve6" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, node_id, route1, route2, route3, route4, route5, route6, route7, route8, reserve, 
+    next_route, reserve1, reserve2, reserve3, reserve4, reserve5, reserve6, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from node_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByNodeId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from node_info
+    where node_id = #{nodeId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from node_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zyt.charging.provider.entity.domain.NodeInfoDO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into node_info (node_id, route1, route2,
+      route3, route4, route5, 
+      route6, route7, route8, 
+      reserve, next_route, reserve1, 
+      reserve2, reserve3, reserve4, 
+      reserve5, reserve6, create_time, 
+      update_time)
+    values (#{nodeId,jdbcType=VARCHAR}, #{route1,jdbcType=VARCHAR}, #{route2,jdbcType=VARCHAR},
+      #{route3,jdbcType=VARCHAR}, #{route4,jdbcType=VARCHAR}, #{route5,jdbcType=VARCHAR}, 
+      #{route6,jdbcType=VARCHAR}, #{route7,jdbcType=VARCHAR}, #{route8,jdbcType=VARCHAR}, 
+      #{reserve,jdbcType=VARCHAR}, #{nextRoute,jdbcType=VARCHAR}, #{reserve1,jdbcType=VARCHAR}, 
+      #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR}, #{reserve4,jdbcType=VARCHAR}, 
+      #{reserve5,jdbcType=VARCHAR}, #{reserve6,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zyt.charging.provider.entity.domain.NodeInfoDO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into node_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="route1 != null">
+        route1,
+      </if>
+      <if test="route2 != null">
+        route2,
+      </if>
+      <if test="route3 != null">
+        route3,
+      </if>
+      <if test="route4 != null">
+        route4,
+      </if>
+      <if test="route5 != null">
+        route5,
+      </if>
+      <if test="route6 != null">
+        route6,
+      </if>
+      <if test="route7 != null">
+        route7,
+      </if>
+      <if test="route8 != null">
+        route8,
+      </if>
+      <if test="reserve != null">
+        reserve,
+      </if>
+      <if test="nextRoute != null">
+        next_route,
+      </if>
+      <if test="reserve1 != null">
+        reserve1,
+      </if>
+      <if test="reserve2 != null">
+        reserve2,
+      </if>
+      <if test="reserve3 != null">
+        reserve3,
+      </if>
+      <if test="reserve4 != null">
+        reserve4,
+      </if>
+      <if test="reserve5 != null">
+        reserve5,
+      </if>
+      <if test="reserve6 != null">
+        reserve6,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="route1 != null">
+        #{route1,jdbcType=VARCHAR},
+      </if>
+      <if test="route2 != null">
+        #{route2,jdbcType=VARCHAR},
+      </if>
+      <if test="route3 != null">
+        #{route3,jdbcType=VARCHAR},
+      </if>
+      <if test="route4 != null">
+        #{route4,jdbcType=VARCHAR},
+      </if>
+      <if test="route5 != null">
+        #{route5,jdbcType=VARCHAR},
+      </if>
+      <if test="route6 != null">
+        #{route6,jdbcType=VARCHAR},
+      </if>
+      <if test="route7 != null">
+        #{route7,jdbcType=VARCHAR},
+      </if>
+      <if test="route8 != null">
+        #{route8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve != null">
+        #{reserve,jdbcType=VARCHAR},
+      </if>
+      <if test="nextRoute != null">
+        #{nextRoute,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null">
+        #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null">
+        #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null">
+        #{reserve3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve4 != null">
+        #{reserve4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve5 != null">
+        #{reserve5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve6 != null">
+        #{reserve6,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyt.charging.provider.entity.domain.NodeInfoDO">
+    <!--@mbg.generated-->
+    update node_info
+    <set>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="route1 != null">
+        route1 = #{route1,jdbcType=VARCHAR},
+      </if>
+      <if test="route2 != null">
+        route2 = #{route2,jdbcType=VARCHAR},
+      </if>
+      <if test="route3 != null">
+        route3 = #{route3,jdbcType=VARCHAR},
+      </if>
+      <if test="route4 != null">
+        route4 = #{route4,jdbcType=VARCHAR},
+      </if>
+      <if test="route5 != null">
+        route5 = #{route5,jdbcType=VARCHAR},
+      </if>
+      <if test="route6 != null">
+        route6 = #{route6,jdbcType=VARCHAR},
+      </if>
+      <if test="route7 != null">
+        route7 = #{route7,jdbcType=VARCHAR},
+      </if>
+      <if test="route8 != null">
+        route8 = #{route8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve != null">
+        reserve = #{reserve,jdbcType=VARCHAR},
+      </if>
+      <if test="nextRoute != null">
+        next_route = #{nextRoute,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null">
+        reserve1 = #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null">
+        reserve2 = #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null">
+        reserve3 = #{reserve3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve4 != null">
+        reserve4 = #{reserve4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve5 != null">
+        reserve5 = #{reserve5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve6 != null">
+        reserve6 = #{reserve6,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyt.charging.provider.entity.domain.NodeInfoDO">
+    <!--@mbg.generated-->
+    update node_info
+    set node_id = #{nodeId,jdbcType=VARCHAR},
+      route1 = #{route1,jdbcType=VARCHAR},
+      route2 = #{route2,jdbcType=VARCHAR},
+      route3 = #{route3,jdbcType=VARCHAR},
+      route4 = #{route4,jdbcType=VARCHAR},
+      route5 = #{route5,jdbcType=VARCHAR},
+      route6 = #{route6,jdbcType=VARCHAR},
+      route7 = #{route7,jdbcType=VARCHAR},
+      route8 = #{route8,jdbcType=VARCHAR},
+      reserve = #{reserve,jdbcType=VARCHAR},
+      next_route = #{nextRoute,jdbcType=VARCHAR},
+      reserve1 = #{reserve1,jdbcType=VARCHAR},
+      reserve2 = #{reserve2,jdbcType=VARCHAR},
+      reserve3 = #{reserve3,jdbcType=VARCHAR},
+      reserve4 = #{reserve4,jdbcType=VARCHAR},
+      reserve5 = #{reserve5,jdbcType=VARCHAR},
+      reserve6 = #{reserve6,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -12,7 +12,7 @@ import java.util.Date;
 public class UserInfoDO {
     private Long id;
     private Integer sex;
-    private Integer phone;
+    private String phone;
     // 用户类型- 0-用户 1-管理员
     private Integer userType;
     private String username;

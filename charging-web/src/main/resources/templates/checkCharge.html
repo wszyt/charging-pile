@@ -1,0 +1,168 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="includes/head :: head"></th:block>
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL PLUGINS -->
+
+
+</head>
+
+<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+<div class="page-wrapper">
+    <th:block th:include="includes/header :: header"></th:block>
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+
+        <!-- BEGIN SIDEBAR -->
+        <th:block th:include="includes/menu :: menu"></th:block>
+        <!-- END SIDEBAR -->
+
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <!-- BEGIN CONTENT BODY -->
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN VALIDATION STATES-->
+                        <div class="portlet light portlet-fit portlet-form bordered">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="icon-settings font-red"></i>
+                                    <span class="caption-subject font-red sbold uppercase">充电桩数据监控</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <!-- BEGIN FORM-->
+                                <form role="form" action="/checkCharge" class="form-horizontal" th:action="@{/checkCharge}" th:method="post"
+                                      th:object="${chargeInfoVO}">
+                                    <input type="hidden" name="id" th:value="*{id}"/>
+                                    <div class="form-body">
+                                        <div class="alert alert-danger" th:if="${baseResult}" th:text="${baseResult.getMessage()}">
+                                            <button class="close" data-close="alert"></button> You have some form errors. Please check below. </div>
+                                        <div class="alert alert-success" th:if="${sucBaseResult}" th:text="${sucBaseResult.getMessage()}">
+                                            <button class="close" data-close="alert"></button> Your form validation is successful! </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">充电桩编号
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <input type="text" data-required="1" class="form-control" th:field="*{code}" th:required="1" /> </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">电压
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <input type="text" data-required="1" class="form-control" th:field="*{voltage}" th:required="1"  /> </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">频率
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <input type="text" data-required="1" class="form-control" th:field="*{frequency}" th:required="1"  /> </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">电流
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <input type="text" data-required="1" class="form-control" th:field="*{current}" th:required="1"  /> </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">有功功率
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <input type="text" data-required="1" class="form-control" th:field="*{activePower}" th:required="1"  /> </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">无功功率
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <input type="text" data-required="1" class="form-control" th:field="*{reactivePower}" th:required="1"  /> </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">有功电量
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <input type="text" data-required="1" class="form-control" th:field="*{activeElectric}" th:required="1"  /> </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">无功电量
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <input type="text" data-required="1" class="form-control" th:field="*{reactiveElectric}" th:required="1"  /> </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-offset-3 col-md-9">
+                                                <button type="submit" class="btn green">提交</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- END FORM-->
+                            </div>
+                        </div>
+                        <!-- END VALIDATION STATES-->
+                    </div>
+                </div>
+
+            </div>
+            <!-- END CONTENT BODY -->
+    </div>
+    <!-- END CONTENT -->
+    <!-- BEGIN Model -->
+    <!--<div class="modal fade" id="articleContent" tabindex="-1" role="dialog" aria-hidden="true">-->
+    <!--    <div class="modal-dialog modal-lg">-->
+    <!--        <div class="modal-content">-->
+    <!--            <div class="modal-header">-->
+    <!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>-->
+    <!--                <h4 class="modal-title">文章内容</h4>-->
+    <!--            </div>-->
+    <!--            <div class="modal-body" id="modal-detail-body"></div>-->
+    <!--            <div class="modal-footer">-->
+    <!--                <button type="button" class="btn blue btn-circle btn-outline" data-dismiss="modal">确认</button>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        &lt;!&ndash; /.modal-content &ndash;&gt;-->
+    <!--    </div>-->
+    <!--    &lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+    <!--</div>-->
+    <!-- END Model -->
+    <!-- END CONTAINER -->
+
+    </div>
+</div>
+<th:block th:include="includes/foot :: foot"></th:block>
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-markdown/lib/markdown.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="/assets/pages/scripts/form-validation.min.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+
+</body>
+</html>

@@ -22,6 +22,16 @@ spring:
     host: 192.168.38.128
     port: 6379
     timeout: 10000
+  mail:
+    host: smtp.qq.com #发送邮件服务器
+    username: 173982112@qq.com #发送邮件的邮箱地址
+    password:  wcorpijkmqpsbgbd #客户端授权码，不是邮箱密码，这个在qq邮箱设置里面自动生成的
+    properties.mail.smtp.port: 465 #端口号465或587
+    from: 173982112@qq.com # 发送邮件的地址，和上面username一致可以任意
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+    default-encoding: utf-8
 server:
   port: 8501
 

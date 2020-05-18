@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.charging.provider.mapper.ReceiveReportMapper">
+  <resultMap id="BaseResultMap" type="com.zyt.charging.provider.entity.domain.ReceiveReportDO">
+    <!--@mbg.generated-->
+    <!--@Table recive_report-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="voltage" jdbcType="VARCHAR" property="voltage" />
+    <result column="frequency" jdbcType="VARCHAR" property="frequency" />
+    <result column="current" jdbcType="VARCHAR" property="current" />
+    <result column="active_power" jdbcType="VARCHAR" property="activePower" />
+    <result column="reactive_power" jdbcType="VARCHAR" property="reactivePower" />
+    <result column="active_electric" jdbcType="VARCHAR" property="activeElectric" />
+    <result column="reactive_electric" jdbcType="VARCHAR" property="reactiveElectric" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, voltage, frequency, `current`, active_power, reactive_power, active_electric, 
+    reactive_electric, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from recive_report
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from recive_report
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zyt.charging.provider.entity.domain.ReceiveReportDO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into recive_report (voltage, frequency, `current`, 
+      active_power, reactive_power, active_electric, 
+      reactive_electric, create_time, update_time
+      )
+    values (#{voltage,jdbcType=VARCHAR}, #{frequency,jdbcType=VARCHAR}, #{current,jdbcType=VARCHAR}, 
+      #{activePower,jdbcType=VARCHAR}, #{reactivePower,jdbcType=VARCHAR}, #{activeElectric,jdbcType=VARCHAR}, 
+      #{reactiveElectric,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zyt.charging.provider.entity.domain.ReceiveReportDO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into recive_report
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="voltage != null">
+        voltage,
+      </if>
+      <if test="frequency != null">
+        frequency,
+      </if>
+      <if test="current != null">
+        `current`,
+      </if>
+      <if test="activePower != null">
+        active_power,
+      </if>
+      <if test="reactivePower != null">
+        reactive_power,
+      </if>
+      <if test="activeElectric != null">
+        active_electric,
+      </if>
+      <if test="reactiveElectric != null">
+        reactive_electric,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="voltage != null">
+        #{voltage,jdbcType=VARCHAR},
+      </if>
+      <if test="frequency != null">
+        #{frequency,jdbcType=VARCHAR},
+      </if>
+      <if test="current != null">
+        #{current,jdbcType=VARCHAR},
+      </if>
+      <if test="activePower != null">
+        #{activePower,jdbcType=VARCHAR},
+      </if>
+      <if test="reactivePower != null">
+        #{reactivePower,jdbcType=VARCHAR},
+      </if>
+      <if test="activeElectric != null">
+        #{activeElectric,jdbcType=VARCHAR},
+      </if>
+      <if test="reactiveElectric != null">
+        #{reactiveElectric,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyt.charging.provider.entity.domain.ReceiveReportDO">
+    <!--@mbg.generated-->
+    update recive_report
+    <set>
+      <if test="voltage != null">
+        voltage = #{voltage,jdbcType=VARCHAR},
+      </if>
+      <if test="frequency != null">
+        frequency = #{frequency,jdbcType=VARCHAR},
+      </if>
+      <if test="current != null">
+        `current` = #{current,jdbcType=VARCHAR},
+      </if>
+      <if test="activePower != null">
+        active_power = #{activePower,jdbcType=VARCHAR},
+      </if>
+      <if test="reactivePower != null">
+        reactive_power = #{reactivePower,jdbcType=VARCHAR},
+      </if>
+      <if test="activeElectric != null">
+        active_electric = #{activeElectric,jdbcType=VARCHAR},
+      </if>
+      <if test="reactiveElectric != null">
+        reactive_electric = #{reactiveElectric,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyt.charging.provider.entity.domain.ReceiveReportDO">
+    <!--@mbg.generated-->
+    update recive_report
+    set voltage = #{voltage,jdbcType=VARCHAR},
+      frequency = #{frequency,jdbcType=VARCHAR},
+      `current` = #{current,jdbcType=VARCHAR},
+      active_power = #{activePower,jdbcType=VARCHAR},
+      reactive_power = #{reactivePower,jdbcType=VARCHAR},
+      active_electric = #{activeElectric,jdbcType=VARCHAR},
+      reactive_electric = #{reactiveElectric,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

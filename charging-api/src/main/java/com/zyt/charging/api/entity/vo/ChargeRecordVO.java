@@ -23,6 +23,7 @@ public class ChargeRecordVO implements Serializable {
     // 消费价格
     private Integer cost;
     private Date endTime;
+    private String isPaid;
     private Date createTime;
     private Date updateTime;
 }

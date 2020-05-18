@@ -37,7 +37,7 @@ public class LoginController {
         String isLogin = (String) request.getSession().getAttribute("token");
         String requestURI = request.getRequestURI();
         if (StringUtils.hasLength(isLogin)) {
-            return "redirect:/index";
+            return "redirect:/chargeRecordTotal";
         }
         return "/login";
     }
@@ -58,7 +58,7 @@ public class LoginController {
             redisService.setString(token, UserTypeEnum.ADMIN.getCode(), 60 * 60 * 24L);
             request.getSession().setAttribute("token", token);
             CookieUtil.setCookie(request, response, "token", token, 60 * 60 * 24);
-            return "redirect:/index";
+            return "redirect:/chargeRecordTotal";
         }
 
         return "login";

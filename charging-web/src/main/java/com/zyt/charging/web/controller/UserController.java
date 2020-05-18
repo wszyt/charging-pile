@@ -124,7 +124,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/selectUserDetailListByCondition", method = RequestMethod.POST)
-    public String selectUserDetailListByCondition(String username, String name, Integer phone, String email, String isChecked, Model model) {
+    public String selectUserDetailListByCondition(String username, String name, String phone, String email, String isChecked, Model model) {
         UserInfoQueryReq userInfoQueryReq = new UserInfoQueryReq();
         userInfoQueryReq.setUsername(username);
         userInfoQueryReq.setName(name);

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zyt.charging.provider.entity.domain.UserInfoDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="user_type" jdbcType="INTEGER" property="userType" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />

@@ -11,6 +11,7 @@
     <result column="power_used" jdbcType="INTEGER" property="powerUsed"/>
     <result column="price_type" jdbcType="INTEGER" property="priceType"/>
     <result column="cost" jdbcType="INTEGER" property="cost"/>
+    <result column="is_paid" jdbcType="INTEGER" property="isPaid"/>
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
   </resultMap>
@@ -25,6 +26,7 @@
     power_used,
     price_type,
     cost,
+    is_paid,
     create_time,
     update_time
     )
@@ -37,6 +39,7 @@
     #{powerUsed},
     #{priceType},
     #{cost},
+    #{isPaid},
     now(), now()
     )
   </insert>
@@ -58,6 +61,9 @@
       </if>
       <if test="cost != null">
         cost = #{cost},
+      </if>
+      <if test="isPaid != null">
+        is_paid = #{isPaid},
       </if>
       update_time = now()
     </set>
@@ -97,9 +103,10 @@
 
   <select id="countChargeRecordByUser" resultType="java.lang.Integer">
     select COUNT(*) FROM
+    (select * from
     charging.charge_record
     where charge_info_id = #{chargeInfoId}
-    group by user_info_id
+    group by user_info_id)
   </select>
 
 </mapper>

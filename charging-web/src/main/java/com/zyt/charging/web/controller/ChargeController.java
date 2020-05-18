@@ -23,7 +23,9 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ChargeController {
@@ -165,5 +167,21 @@ public class ChargeController {
         BaseResult<ChargeCountResp> chargeCountRespBaseResult = userInfoService.selectChargeCount();
         model.addAttribute("chargeCountResp", chargeCountRespBaseResult.getData());
         return "chargeCountTotal";
+    }
+
+    @RequestMapping(value = "/checkChargePage")
+    public String checkChargePage() {
+        return "checkCharge";
+    }
+
+    @RequestMapping(value = "/checkCharge", method = RequestMethod.POST)
+    public String checkCharge(ChargeInfoVO chargeInfoVO, Model model, RedirectAttributes redirectAttributes) {
+        BaseResult<Void> baseResult = chargeInfoService.checkChargeInfo(chargeInfoVO);
+        if (baseResult.getStatus().equals(BaseResult.STATUS_FAIL)) {
+            model.addAttribute("baseResult", baseResult);
+            return "checkCharge";
+        }
+        redirectAttributes.addFlashAttribute("sucBaseResult", baseResult);
+        return "redirect:/checkChargePage";
     }
 }

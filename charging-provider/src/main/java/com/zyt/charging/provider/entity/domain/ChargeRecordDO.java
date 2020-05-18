@@ -24,6 +24,7 @@ public class ChargeRecordDO {
     // 充电开始时间
     private Date startTime;
     private Date endTime;
+    private String isPaid;
     private Date createTime;
     private Date updateTime;
 }

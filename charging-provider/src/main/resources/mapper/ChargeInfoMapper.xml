@@ -16,6 +16,15 @@
     <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="voltage" jdbcType="VARCHAR" property="voltage" />
+    <result column="frequency" jdbcType="VARCHAR" property="frequency" />
+    <result column="current" jdbcType="VARCHAR" property="current" />
+    <result column="active_power" jdbcType="VARCHAR" property="activePower" />
+    <result column="reactive_power" jdbcType="VARCHAR" property="reactivePower" />
+    <result column="active_electric" jdbcType="VARCHAR" property="activeElectric" />
+    <result column="reactive_electric" jdbcType="VARCHAR" property="reactiveElectric" />
+    <result column="node_info_id" jdbcType="BIGINT" property="nodeInfoId" />
+    <result column="receive_report_id" jdbcType="BIGINT" property="receiveReportId" />
   </resultMap>
 
   <insert id="insertChargeInfo" useGeneratedKeys="true" keyProperty="id" parameterType="com.zyt.charging.provider.entity.domain.ChargeInfoDO">
@@ -33,7 +42,16 @@
     brands,
     pic_url,
     create_time,
-    update_time
+    update_time,
+    voltage,
+    frequency,
+    `current`,
+    active_power,
+    reactive_power,
+    active_electric,
+    reactive_electric,
+    node_info_id,
+    receive_report_id
     )
     VALUES (
     0,
@@ -48,7 +66,16 @@
     #{type},
     #{brands},
     #{picUrl},
-    now(), now()
+    now(), now(),
+    #{voltage},
+    #{frequency},
+    #{current},
+    #{activePower},
+    #{reactivePower},
+    #{activeElectric},
+    #{reactiveElectric},
+    #{nodeInfoId},
+    #{receiveReportId}
     )
   </insert>
 

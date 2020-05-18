@@ -133,7 +133,7 @@ public class ChargeRecordServiceImpl implements ChargeRecordService {
     }
 
     @Override
-    public BaseResult<Void> endCharge(ChargeRecordVO chargeRecordVO) {
+    public BaseResult<ChargeRecordVO> endCharge(ChargeRecordVO chargeRecordVO) {
         ChargeInfoQueryReq chargeInfoQueryReq = new ChargeInfoQueryReq();
         chargeInfoQueryReq.setId(chargeRecordVO.getChargeInfoId());
         ChargeInfoDO chargeInfoDO = chargeInfoManager.selectChargeInfoById(chargeRecordVO.getChargeInfoId());
@@ -152,6 +152,7 @@ public class ChargeRecordServiceImpl implements ChargeRecordService {
             chargeRecordDO.setCost(chargeRecordDO.getPowerUsed() * chargeInfoDO.getPrice());
         }
         chargeRecordManager.updateChargeRecord(chargeRecordDO, chargeInfoDO);
-        return BaseResult.success("充电成功");
+        BeanUtils.copyProperties(chargeRecordDO, chargeRecordVO);
+        return BaseResult.success(chargeRecordVO, "充电成功");
     }
 }

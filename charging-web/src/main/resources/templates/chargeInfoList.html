@@ -55,7 +55,7 @@
                                 <th> 所在城市 </th>
                                 <th> 价格 </th>
                                 <th> 计价方式 </th>
-                                <th> 充电功率 </th>
+                                <th> 有功功率 </th>
                                 <th> 充电桩状态 </th>
                                 <th style="width: 18%"> 操作 </th>
                             </tr>
@@ -78,11 +78,10 @@
                                 <td th:text="${chargeInfo.getPrice() + '元'}"> </td>
                                 <div th:switch="${chargeInfo.getPriceType()}">
                                     <td th:case="0">无法使用</td>
-                                    <td th:case="1">每小时</td>
-                                    <td th:case="2">每千瓦时</td>
-                                    <td th:case="3">待维修</td>
+                                    <td th:case="1">按时间</td>
+                                    <td th:case="2">按消耗电量</td>
                                 </div >
-                                <td th:text="${chargeInfo.getPower()} + '千瓦时'"> </td>
+                                <td th:text="${chargeInfo.getActivePower()} + 'W'"> </td>
                                 <div th:switch="${chargeInfo.getStatus()}">
                                     <td th:case="0">可以使用</td>
                                     <td th:case="1">使用中</td>
@@ -90,6 +89,7 @@
                                     <td th:case="4">待维修</td>
                                 </div >
                                 <td>
+                                    <a th:href="@{/chargeDetail(id=${chargeInfo.getId()})}" class="btn green btn-circle btn-xs" style="height: 23px;width: 50px">查看</a>
                                     <a th:href="@{/modifyChargeInfoPage(id=${chargeInfo.getId()})}" class="btn blue btn-circle btn-xs" style="height: 23px;width: 50px">编辑</a>
                                     <a th:href="@{/delete(id=${chargeInfoVO.getId()})}" class="btn red btn-circle btn-xs" data-toggle="confirmation" data-popout="true" data-original-title="" title="确认删除" style="height: 23px;width: 50px">删除</a>
                                 </td>

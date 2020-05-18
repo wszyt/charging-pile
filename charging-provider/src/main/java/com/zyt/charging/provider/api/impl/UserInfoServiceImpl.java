@@ -22,6 +22,7 @@ import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -48,7 +49,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         UserInfoDO userInfoDO = new UserInfoDO();
         BeanUtils.copyProperties(request.getUserInfoVO(), userInfoDO);
-        int i = userInfoManager.insertUserInfo(userInfoDO);
+        int i = 0;
+        try {
+            i = userInfoManager.insertUserInfo(userInfoDO);
+        } catch (DuplicateKeyException e) {
+            return BaseResult.fail("账号或者用户名已存在");
+        }
         if (i > 0) {
             return BaseResult.success("新增用户信息成功");
         } else {
