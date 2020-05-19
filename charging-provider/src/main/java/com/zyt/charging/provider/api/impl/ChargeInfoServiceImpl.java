@@ -166,7 +166,7 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
             if (ae > 3 || ap > 3 || cu > 3 || fq > 3 || vl > 3 || re > 3 || rp > 3) {
                 chargeInfoDO.setStatus(ChargeStatusEnum.UN_USABLE.getCode());
                 chargeInfoManager.updateChargeInfo(chargeInfoDO);
-                emailService.sendSimpleMail("173982112@qq.com", "充电桩参数偏差通知", "充电桩(编号：" + chargeInfoDO.getCode() + ")参数有误，请及时处理");
+                emailService.sendSimpleMail("173982112@qq.com", "充电桩参数偏差通知", "充电桩(编号：" + chargeInfoDO.getCode() + ")参数有误，请及时处理。 地址:http://localhost:8080/chargeDetail?id=" + chargeInfoDO.getId());
                 return BaseResult.success();
             }
         } catch (Exception e) {

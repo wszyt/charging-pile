@@ -31,6 +31,13 @@ public interface ChargeRecordService {
     BaseResult<Integer> insertChargeRecord(ChargeRecordChangeReq request);
 
     /**
+     * 更新
+     * @param request
+     * @return
+     */
+    BaseResult<Void> updateChargeRecord(ChargeRecordChangeReq request);
+
+    /**
      * 根据用户id查询充电记录
      *
      * @param request

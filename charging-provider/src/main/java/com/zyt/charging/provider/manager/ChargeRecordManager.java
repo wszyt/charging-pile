@@ -37,8 +37,12 @@ public class ChargeRecordManager {
     }
 
     @Transactional
-    public int updateChargeRecord(ChargeRecordDO chargeRecordDO, ChargeInfoDO chargeInfoDO) {
+    public int updateChargeRecordAndChargeInfo(ChargeRecordDO chargeRecordDO, ChargeInfoDO chargeInfoDO) {
         chargeInfoMapper.updateChargeInfo(chargeInfoDO);
+        return chargeRecordMapper.updateChargeRecord(chargeRecordDO);
+    }
+
+    public int updateChargeRecord(ChargeRecordDO chargeRecordDO) {
         return chargeRecordMapper.updateChargeRecord(chargeRecordDO);
     }
 
@@ -55,10 +59,7 @@ public class ChargeRecordManager {
     }
 
     public int countChargeRecordByUser(Long chargeInfoId) {
-        Integer count = chargeRecordMapper.countChargeRecordByUser(chargeInfoId);
-        if (count == null) {
-            count = 0;
-        }
-        return count;
+        List<ChargeRecordDO> chargeRecordDOS = chargeRecordMapper.countChargeRecordByUser(chargeInfoId);
+        return chargeRecordDOS.size();
     }
 }

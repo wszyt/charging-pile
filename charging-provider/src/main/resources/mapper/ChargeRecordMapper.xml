@@ -101,12 +101,11 @@
     where charge_info_id = #{chargeInfoId}
   </select>
 
-  <select id="countChargeRecordByUser" resultType="java.lang.Integer">
-    select COUNT(*) FROM
-    (select * from
+  <select id="countChargeRecordByUser" resultMap="BaseResultMap">
+    select * FROM
     charging.charge_record
     where charge_info_id = #{chargeInfoId}
-    group by user_info_id)
+    group by user_info_id
   </select>
 
 </mapper>

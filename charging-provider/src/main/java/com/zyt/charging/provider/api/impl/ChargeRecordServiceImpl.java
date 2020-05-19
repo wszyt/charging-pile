@@ -45,6 +45,16 @@ public class ChargeRecordServiceImpl implements ChargeRecordService {
     }
 
     @Override
+    public BaseResult<Void> updateChargeRecord(ChargeRecordChangeReq request) {
+        ChargeRecordDO chargeRecordDO = new ChargeRecordDO();
+        chargeRecordDO.setId(request.getId());
+        chargeRecordDO.setIsPaid(request.getIsPaid());
+        chargeRecordManager.updateChargeRecord(chargeRecordDO);
+        return BaseResult.success();
+    }
+
+
+    @Override
     public BaseResult<Integer> insertChargeRecord(ChargeRecordChangeReq request) {
         if (request == null || !request.checkParam()) {
             return BaseResult.fail("缺少必要参数");
@@ -151,7 +161,7 @@ public class ChargeRecordServiceImpl implements ChargeRecordService {
         } else {
             chargeRecordDO.setCost(chargeRecordDO.getPowerUsed() * chargeInfoDO.getPrice());
         }
-        chargeRecordManager.updateChargeRecord(chargeRecordDO, chargeInfoDO);
+        chargeRecordManager.updateChargeRecordAndChargeInfo(chargeRecordDO, chargeInfoDO);
         BeanUtils.copyProperties(chargeRecordDO, chargeRecordVO);
         return BaseResult.success(chargeRecordVO, "充电成功");
     }

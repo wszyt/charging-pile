@@ -103,6 +103,7 @@ public class ChargeController {
             return "redirect:/selectAllChargeInfoList";
         } else {
             ChargeInfoChangeReq chargeInfoChangeReq = new ChargeInfoChangeReq();
+            chargeInfoVO.setCode("C" + System.currentTimeMillis());
             chargeInfoChangeReq.setChargeInfoVO(chargeInfoVO);
             BaseResult<Void> baseResult = chargeInfoService.insertChargeInfo(chargeInfoChangeReq);
             model.addAttribute("baseResult", baseResult);

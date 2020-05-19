@@ -56,17 +56,28 @@
                                                 <p th:text="${chargeInfoVO.getDesc()}"> 充电桩详情 </p>
                                                 <ul class="list-inline">
                                                     <i class="fa fa-bookmark-o"></i>
-                                                    <li th:text="${chargeInfoVO.getCity()}">
-                                                         </li>
-                                                    <li th:if="${chargeInfoVO.getStatus()} == 0">
-                                                    <i class="fa fa-bookmark-o"></i> 可使用 </li>
-                                                    <li th:if="${chargeInfoVO.getStatus()} == 1">
-                                                        <i class="fa fa-bookmark-o"></i> 使用中 </li>
-                                                    <li th:if="${chargeInfoVO.getStatus()} == 2">
-                                                        <i class="fa fa-bookmark-o"></i> 不可使用 </li>
+                                                    <li th:text="'城市:' + ${chargeInfoVO.getCity()}"></li>
                                                     <i class="fa fa-bookmark-o"></i>
-                                                    <li th:text="${chargeInfoVO.getPower()} + 千瓦时">
-                                                     </li>
+                                                    <li th:if="${chargeInfoVO.getStatus()} == 0">可使用 </li>
+                                                    <li th:if="${chargeInfoVO.getStatus()} == 1">使用中 </li>
+                                                    <li th:if="${chargeInfoVO.getStatus()} == 2">不可使用 </li>
+                                                    <i class="fa fa-bookmark-o"></i>
+                                                    <li th:text="'电压:' + ${chargeInfoVO.getVoltage()} + V"></li>
+                                                    <i class="fa fa-bookmark-o"></i>
+                                                    <li th:text="'频率:' + ${chargeInfoVO.getFrequency()} + Hz"></li>
+                                                    <i class="fa fa-bookmark-o"></i>
+                                                    <li th:text="'电流:' + ${chargeInfoVO.getCurrent()} + A"></li>
+                                                    <i class="fa fa-bookmark-o"></i>
+                                                    <li th:text="'有功功率:' + ${chargeInfoVO.getActivePower()} + W"></li>
+                                                    <i class="fa fa-bookmark-o"></i>
+                                                    <li th:text="'无功功率:' + ${chargeInfoVO.getReactivePower()} + W"></li>
+
+                                                </ul>
+                                                <ul class="list-inline" th:if="${chargeInfoVO.getActiveElectric()} != null">
+                                                    <i class="fa fa-bookmark-o"></i>
+                                                    <li th:text="'有功电量:' + ${chargeInfoVO.getActiveElectric()} + 度"> </li>
+                                                    <i class="fa fa-bookmark-o"></i>
+                                                    <li th:text="'无功电量:' + ${chargeInfoVO.getReactiveElectric()} + 度"></li>
                                                 </ul>
                                             </div>
                                             <!--end col-md-8-->
@@ -118,9 +129,11 @@
                                                                 <th>
                                                                     <i class="fa fa-bookmark"></i> 充电结束时间 </th>
                                                                 <th>
-                                                                    <i class="fa fa-bookmark"></i> 使用电量/千瓦时 </th>
+                                                                    <i class="fa fa-bookmark"></i> 消耗电量(有功) </th>
                                                                 <th>
-                                                                    <i class="fa fa-bookmark"></i> 消耗金额/元 </th>
+                                                                    <i class="fa fa-bookmark"></i> 消费金额 </th>
+                                                                <th>
+                                                                    <i class="fa fa-bookmark"></i> 是否支付 </th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -128,8 +141,9 @@
                                                                 <td th:text="${chargeRecord.getName()}">  </td>
                                                                 <td th:text="${#dates.format(chargeRecord.getStartTime(),'yyyy-MM-dd HH:mm:ss')}">  </td>
                                                                 <td th:text="${#dates.format(chargeRecord.getEndTime(),'yyyy-MM-dd HH:mm:ss')}">  </td>
-                                                                <td th:text="${chargeRecord.getPowerUsed()}">  </td>
-                                                                <td th:text="${chargeRecord.getCost()}">  </td>
+                                                                <td th:text="${chargeRecord.getPowerUsed()} + W">  </td>
+                                                                <td th:text="${chargeRecord.getCost()} + 元">  </td>
+                                                                <td th:text="${chargeRecord.getIsPaid()}">  </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>

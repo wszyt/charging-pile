@@ -6,7 +6,6 @@
     <id column="brands_id" jdbcType="BIGINT" property="brandsId" />
     <result column="charge_times" jdbcType="INTEGER" property="chargeTimes" />
     <result column="price" jdbcType="INTEGER" property="price" />
-    <result column="power" jdbcType="INTEGER" property="power" />
     <result column="price_type" jdbcType="INTEGER" property="priceType" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="city" jdbcType="VARCHAR" property="city" />
@@ -32,7 +31,6 @@
     charge_times,
     brands_id,
     price,
-    power,
     price_type,
     status,
     code,
@@ -57,7 +55,6 @@
     0,
     #{brandsId},
     #{price},
-    #{power},
     #{priceType},
     0,
     #{code},
@@ -87,9 +84,6 @@
       </if>
       <if test="price != null">
         price = #{price},
-      </if>
-      <if test="power != null">
-        power = #{power},
       </if>
       <if test="priceType != null">
         price_type = #{priceType},

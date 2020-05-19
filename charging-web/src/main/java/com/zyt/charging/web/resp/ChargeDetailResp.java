@@ -25,4 +25,5 @@ public class ChargeDetailResp implements Serializable {
     private Date endTime;
     // 用户名称
     private String name;
+    private String isPaid;
 }

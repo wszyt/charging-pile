@@ -85,8 +85,7 @@
                                 <div th:switch="${chargeInfo.getStatus()}">
                                     <td th:case="0">可以使用</td>
                                     <td th:case="1">使用中</td>
-                                    <td th:case="2">无法使用</td>
-                                    <td th:case="4">待维修</td>
+                                    <td th:case="2">待维修</td>
                                 </div >
                                 <td>
                                     <a th:href="@{/chargeDetail(id=${chargeInfo.getId()})}" class="btn green btn-circle btn-xs" style="height: 23px;width: 50px">查看</a>

@@ -9,7 +9,7 @@ import lombok.Getter;
 public enum ChargeStatusEnum {
     NORMAL(0, "可使用"),
     USED(1, "使用中"),
-    UN_USABLE(2, "不可用")
+    UN_USABLE(2, "待维修")
     ;
 
     @Getter

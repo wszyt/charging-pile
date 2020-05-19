@@ -107,9 +107,11 @@
                                                                 <th>
                                                                     <i class="fa fa-bookmark"></i> 充电结束时间 </th>
                                                                 <th>
-                                                                    <i class="fa fa-bookmark"></i> 使用电量/千瓦时 </th>
+                                                                    <i class="fa fa-bookmark"></i> 消耗电量(有功) </th>
                                                                 <th>
-                                                                    <i class="fa fa-bookmark"></i> 消耗金额/元 </th>
+                                                                    <i class="fa fa-bookmark"></i> 消费金额 </th>
+                                                                <th>
+                                                                    <i class="fa fa-bookmark"></i> 是否支付 </th>
                                                                 <th> 充电桩信息 </th>
                                                             </tr>
                                                             </thead>
@@ -118,8 +120,9 @@
                                                                 <td th:text="${chargeRecord.getChargeInfoId()}">  </td>
                                                                 <td th:text="${#dates.format(chargeRecord.getStartTime(),'yyyy-MM-dd HH:mm:ss')}">  </td>
                                                                 <td th:text="${#dates.format(chargeRecord.getEndTime(),'yyyy-MM-dd HH:mm:ss')}">  </td>
-                                                                <td th:text="${chargeRecord.getPowerUsed()}">  </td>
-                                                                <td th:text="${chargeRecord.getCost()}">  </td>
+                                                                <td th:text="${chargeRecord.getPowerUsed()} + W">  </td>
+                                                                <td th:text="${chargeRecord.getCost()} + 元">  </td>
+                                                                <td th:text="${chargeRecord.getIsPaid()}">  </td>
                                                                 <td>
                                                                     <a class="btn btn-sm grey-salsa btn-outline" th:href="@{/chargeDetail(id=${chargeRecord.getChargeInfoId()})}"> 查看 </a>
                                                                 </td>

@@ -42,7 +42,7 @@ public interface ChargeRecordMapper {
 
     List<ChargeRecordDO> selectRecordByChargeInfoId(@Param("chargeInfoId") Long chargeInfoId);
 
-    Integer countChargeRecordByUser(@Param("chargeInfoId") Long chargeInfoId);
+    List<ChargeRecordDO> countChargeRecordByUser(@Param("chargeInfoId") Long chargeInfoId);
 
     int updateChargeRecord(ChargeRecordDO chargeRecordDO);
 
