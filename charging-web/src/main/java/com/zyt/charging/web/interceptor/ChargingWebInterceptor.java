@@ -17,8 +17,11 @@ public class ChargingWebInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
         String token = (String) request.getSession().getAttribute("token");
+
         String requestURI = request.getRequestURI();
+
         // 已登录
         if (StringUtils.hasLength(token)) {
             BaseResult<String> strResult = redisService.getString(token);
@@ -31,6 +34,7 @@ public class ChargingWebInterceptor implements HandlerInterceptor {
                         return true;
                     }
                 }
+
                 // 请求管理员页面
                 else {
                     // 当前身份为管理员则放行
@@ -51,6 +55,7 @@ public class ChargingWebInterceptor implements HandlerInterceptor {
                 response.sendRedirect("/login");
             }
         }
+
         return false;
     }
 }

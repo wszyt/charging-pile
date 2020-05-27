@@ -10,16 +10,14 @@ import com.zyt.charging.api.entity.vo.NodeInfoVO;
 import com.zyt.charging.api.entity.vo.ReceiveReportVO;
 import com.zyt.charging.api.service.ChargeInfoService;
 import com.zyt.charging.api.service.EmailService;
-import com.zyt.charging.provider.entity.domain.ChargeBrandsDO;
-import com.zyt.charging.provider.entity.domain.ChargeInfoDO;
-import com.zyt.charging.provider.entity.domain.NodeInfoDO;
-import com.zyt.charging.provider.entity.domain.ReceiveReportDO;
+import com.zyt.charging.provider.entity.domain.*;
 import com.zyt.charging.provider.manager.ChargeBrandsManager;
 import com.zyt.charging.provider.manager.ChargeInfoManager;
 import com.zyt.charging.provider.manager.RedisManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zyt.charging.provider.mapper.ChargeCompareMapper;
 import com.zyt.charging.provider.mapper.NodeInfoMapper;
 import com.zyt.charging.provider.mapper.ReceiveReportMapper;
 import org.apache.dubbo.config.annotation.Service;
@@ -42,7 +40,7 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
     @Resource
     ChargeBrandsManager chargeBrandsManager;
     @Resource
-    ReceiveReportMapper receiveReportMapper;
+    ChargeCompareMapper chargeCompareMapper;
     @Resource
     EmailService emailService;
 
@@ -163,10 +161,21 @@ public class ChargeInfoServiceImpl implements ChargeInfoService {
             int vl = Math.abs(Integer.parseInt(chargeInfoVO.getVoltage()) - Integer.parseInt(chargeInfoDO.getVoltage()));
             int re = Math.abs(Integer.parseInt(chargeInfoVO.getReactiveElectric()) - Integer.parseInt(chargeInfoDO.getReactiveElectric()));
             int rp = Math.abs(Integer.parseInt(chargeInfoVO.getReactivePower()) - Integer.parseInt(chargeInfoDO.getReactivePower()));
+            ChargeCompareDO chargeCompareDO = new ChargeCompareDO();
+            BeanUtils.copyProperties(chargeInfoVO, chargeCompareDO);
+            chargeCompareDO.setChargeCode(chargeInfoVO.getCode());
+            chargeCompareDO.setAeErr(String.valueOf(ae));
+            chargeCompareDO.setApErr(String.valueOf(ap));
+            chargeCompareDO.setCuErr(String.valueOf(cu));
+            chargeCompareDO.setFrErr(String.valueOf(fq));
+            chargeCompareDO.setVoErr(String.valueOf(vl));
+            chargeCompareDO.setReErr(String.valueOf(re));
+            chargeCompareDO.setRpErr(String.valueOf(rp));
+            chargeCompareMapper.insert(chargeCompareDO);
             if (ae > 3 || ap > 3 || cu > 3 || fq > 3 || vl > 3 || re > 3 || rp > 3) {
                 chargeInfoDO.setStatus(ChargeStatusEnum.UN_USABLE.getCode());
                 chargeInfoManager.updateChargeInfo(chargeInfoDO);
-                emailService.sendSimpleMail("173982112@qq.com", "充电桩参数偏差通知", "充电桩(编号：" + chargeInfoDO.getCode() + ")参数有误，请及时处理。 地址:http://localhost:8080/chargeDetail?id=" + chargeInfoDO.getId());
+                emailService.sendSimpleMail("173982112@qq.com", "充电桩参数偏差通知", "充电桩(编号：" + chargeInfoDO.getCode() + ")参数有误，请及时处理,检查充电桩是否正常。 地址:http://localhost:8080/chargeDetail?id=" + chargeInfoDO.getId());
                 return BaseResult.success();
             }
         } catch (Exception e) {

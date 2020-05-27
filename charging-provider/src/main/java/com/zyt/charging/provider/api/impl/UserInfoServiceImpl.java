@@ -89,7 +89,6 @@ public class UserInfoServiceImpl implements UserInfoService {
             BeanUtils.copyProperties(userInfo, userInfoVO);
             userInfoVOS.add(userInfoVO);
         });
-
         return BaseResult.success(userInfoVOS);
     }
 

@@ -55,13 +55,16 @@
                                                     <i class="fa fa-bookmark-o"></i>
                                                     <li th:text="${userInfoVO.getUsername()}">
                                                          </li>
+                                                    <i class="fa fa-heart"></i>
                                                     <li th:if="${userInfoVO.getSex()} == 0">
-                                                    <i class="fa fa-heart"></i> 男 </li>
+                                                     男 </li>
                                                     <li th:if="${userInfoVO.getSex()} == 1">
-                                                        <i class="fa fa-heart"></i> 女 </li>
+                                                        </i> 女 </li>
                                                     <i class="fa fa-phone"></i>
-                                                    <li th:text="${userInfoVO.getPhone()}">
-                                                     </li>
+                                                    <li th:text="${userInfoVO.getPhone()}"></li>
+                                                    <i class="fa fa-bookmark-o"></i>
+                                                    <li th:if="${userInfoVO.getUserType()} == 0">用户</li>
+                                                    <li th:if="${userInfoVO.getUserType()} == 1">管理员</li>
                                                 </ul>
                                             </div>
                                             <!--end col-md-8-->

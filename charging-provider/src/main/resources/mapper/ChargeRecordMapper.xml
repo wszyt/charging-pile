@@ -87,6 +87,7 @@
     select * from
     charging.charge_record
     where user_info_id = #{userId}
+    order by id desc
   </select>
 
   <select id="selectRecordById" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -99,6 +100,7 @@
     select * from
     charging.charge_record
     where charge_info_id = #{chargeInfoId}
+    order by id desc
   </select>
 
   <select id="countChargeRecordByUser" resultMap="BaseResultMap">
